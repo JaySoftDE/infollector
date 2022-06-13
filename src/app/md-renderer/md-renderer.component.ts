@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import MardownFilesJson from '../../assets/markdowns/index.json';
+import MarkdownFilesJson from '../../assets/markdowns/_content.json';
 
 interface MarkDownFile {
   displayname: string;
@@ -30,14 +30,14 @@ export class MdRendererComponent {
   constructor(
     private breakpointObserver: BreakpointObserver
     ) {
-      this.markDownFiles = MardownFilesJson.sort((a, b) => {
+      this.markDownFiles = MarkdownFilesJson.sort((a, b) => {
         return this.compare(a.displayname, b.displayname, true)
       });
-      this.pathToMarkdown = './assets/markdowns/default.md'
+      this.pathToMarkdown = '';
     }
 
     ngOnInit(): void {
-      this.setMarkDownFileName("default");
+      this.setMarkDownFileName("_default");
     }
   
     setMarkDownFileName(filename: string): void {
