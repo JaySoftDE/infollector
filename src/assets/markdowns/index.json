@@ -1,0 +1,22 @@
+[
+  {
+    "displayname": "Nützliche Links",
+    "filename": "links"
+  },
+  {
+    "displayname": "Angular README",
+    "filename": "angular-readme"
+  },
+  {
+    "displayname": "Angular Compiler",
+    "filename": "angular-compiler"
+  },
+  {
+    "displayname": "Flex Info",
+    "filename": "flex-info"
+  },
+  {
+    "displayname": "ngx-markdown",
+    "filename": "ngx-markdown"
+  }
+]
