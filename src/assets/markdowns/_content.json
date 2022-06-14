@@ -1,22 +1,36 @@
 [
   {
     "displayname": "Nützliche Links",
-    "filename": "links"
+    "filename": "links",
+    "subitems": []
   },
   {
     "displayname": "Angular README",
-    "filename": "angular-readme"
+    "filename": "angular-readme",
+    "subitems": []
   },
   {
     "displayname": "Angular Compiler",
-    "filename": "angular-compiler"
+    "filename": "angular-compiler",
+    "subitems": []
   },
   {
     "displayname": "Flex Info",
-    "filename": "flex-info"
+    "filename": "flex-info",
+    "subitems": []
   },
   {
     "displayname": "ngx-markdown",
-    "filename": "ngx-markdown"
+    "filename": "",
+    "subitems": [
+      {
+        "itemname": "Allgemein",
+        "filename": "ngx-markdown"
+      },
+      {
+        "itemname": "Syntax Highlighting",
+        "filename": "prism"
+      }
+    ]
   }
 ]

@@ -5,9 +5,21 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import MarkdownFilesJson from '../../assets/markdowns/_content.json';
 
+interface MDFSubItem {
+  itemname: string;
+  filename: string;
+}
+
 interface MarkDownFile {
   displayname: string;
   filename: string;
+  subitems: MDFSubItem[];
+}
+
+const defaultFile = {
+  "displayname": "",
+  "filename": "_default",
+  "subitems": []
 }
 
 @Component({
@@ -18,8 +30,7 @@ interface MarkDownFile {
 export class MdRendererComponent {
 
   public markDownFiles: MarkDownFile[];
-
-  public pathToMarkdown: string;
+  public selectedMarkDownFile: MarkDownFile;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -33,15 +44,27 @@ export class MdRendererComponent {
       this.markDownFiles = MarkdownFilesJson.sort((a, b) => {
         return this.compare(a.displayname, b.displayname, true)
       });
-      this.pathToMarkdown = '';
+      this.selectedMarkDownFile = defaultFile;
     }
 
     ngOnInit(): void {
-      this.setMarkDownFileName("_default");
+      this.setMarkDownFile(this.selectedMarkDownFile);
     }
   
-    setMarkDownFileName(filename: string): void {
-      this.pathToMarkdown = `./assets/markdowns/${filename}.md`;
+    setMarkDownFile(mdFile: MarkDownFile): void {
+      this.selectedMarkDownFile = mdFile;
+    }
+
+    hasSubitems(): boolean {
+      return (this.selectedMarkDownFile.subitems?.length > 0)
+    }
+
+    getSelectedMarkDownFile(): MarkDownFile {
+      return this.selectedMarkDownFile;
+    }
+    
+    getFilePath(filename: string): string {
+      return `./assets/markdowns/${filename}.md`;
     }
   
     private compare(a: number | string, b: number | string, isAsc: boolean) {
