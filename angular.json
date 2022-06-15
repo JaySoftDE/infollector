@@ -33,12 +33,14 @@
               "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.css",
               "./node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css",
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "./src/styles.scss"
+              "./src/styles.scss",
+              "./src/mat-theme-change.sass"
             ],
             "scripts": [
               "./node_modules/marked/marked.min.js",
               "./node_modules/prismjs/prism.js",
               "./node_modules/prismjs/components/prism-typescript.min.js",
+              "./node_modules/prismjs/components/prism-sass.min.js",
               "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.js",
               "./node_modules/prismjs/plugins/line-highlight/prism-line-highlight.min.js"
             ]

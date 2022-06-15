@@ -42,5 +42,15 @@
         "filename": "html-force-browser-reload"
       }
     ]
+  },
+  {
+    "displayname": "Angular Material",
+    "filename": "",
+    "subitems": [
+      {
+        "itemname": "Theme Customizing",
+        "filename": "angular-material-theme-customizing"
+      }
+    ]
   }
 ]

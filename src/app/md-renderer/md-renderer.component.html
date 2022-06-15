@@ -1,8 +1,10 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>JaySoft</mat-toolbar>
-    <mat-nav-list *ngFor="let markDownFile of markDownFiles">
+    <mat-toolbar>
+      <img class="header-logo" src="./assets/jaysoft.svg" alt="JaySoft" />
+    </mat-toolbar>
+    <mat-nav-list color="accent" *ngFor="let markDownFile of markDownFiles">
       <a mat-list-item (click)="setMarkDownFile(markDownFile)">{{markDownFile.displayname}}</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -14,17 +16,21 @@
       </button>
       <span>Infollector</span>
     </mat-toolbar>
-    <div class="md-render-sidenav-content">
+    <div>
       <div *ngIf="hasSubitems(); then WithSubitems else WithoutSubitems"></div>
       <ng-template #WithSubitems>
-        <mat-tab-group color="primary" animationDuration="0">
-            <mat-tab *ngFor="let subitem of selectedMarkDownFile.subitems" [label]="subitem.itemname">
+        <mat-tab-group color="accent" animationDuration="0">
+          <mat-tab *ngFor="let subitem of selectedMarkDownFile.subitems" [label]="subitem.itemname">
+            <div class="markdown-content">
               <markdown [src]="getFilePath(subitem.filename)" ngPreserveWhitespaces></markdown>
-            </mat-tab>
+            </div>
+          </mat-tab>
         </mat-tab-group>
       </ng-template>
       <ng-template #WithoutSubitems>
-        <markdown [src]="getFilePath(selectedMarkDownFile.filename)" ngPreserveWhitespaces></markdown>
+        <div class="markdown-content">
+          <markdown [src]="getFilePath(selectedMarkDownFile.filename)" ngPreserveWhitespaces></markdown>
+        </div>
       </ng-template>
     </div>
   </mat-sidenav-content>

@@ -1,3 +1,3 @@
-# Infosammlung
+# INFOrmation coLLECTOR
 
-<-- Info auswählen
+![JaySoft](./assets/jaysoft.svg "JaySoft")
