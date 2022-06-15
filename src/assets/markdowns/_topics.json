@@ -1,0 +1,14 @@
+[
+  {
+    "topic": "Angular",
+    "foldername": "angular"
+  },
+  {
+    "topic": "HTML",
+    "foldername": "html"
+  },
+  {
+    "topic": "SCSS",
+    "foldername": "scss"
+  }
+]

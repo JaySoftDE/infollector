@@ -7,7 +7,7 @@
 }
 
 .sidenav .mat-toolbar {
-  background: rgb(44, 44, 44);
+  background: rgb(48, 48, 48);
 }
 
 .header-logo {
@@ -15,10 +15,18 @@
   padding-bottom: 5px;
 }
 
+.topic-selector {
+  width: 249px;
+}
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.main-content {
+  padding-top: 5px;
 }
 
 .markdown-content {

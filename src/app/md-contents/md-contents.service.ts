@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { MarkDownFile } from './md-contents';
+import { Topic, MarkDownFile } from './md-contents';
 
 
 @Injectable({
@@ -14,7 +14,11 @@ export class MdContentsService {
     private http: HttpClient,
   ) { }
 
-  getContents(): Observable<MarkDownFile[]> {
-    return this.http.get<MarkDownFile[]>('./assets/markdowns/_content.json');
+  getTopics(): Observable<Topic[]> {
+    return this.http.get<Topic[]>('./assets/markdowns/_topics.json');
+  }
+  
+  getTopicContents(topicFolder: string): Observable<MarkDownFile[]> {
+    return this.http.get<MarkDownFile[]>(`./assets/markdowns/${topicFolder}/_content.json`);
   }
 }

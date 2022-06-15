@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { MarkDownFile, defaultFile } from '../md-contents/md-contents';
+import { Topic, MarkDownFile, defaultTopic, defaultFile } from '../md-contents/md-contents';
 import { MdContentsService } from '../md-contents/md-contents.service';
 
 @Component({
@@ -13,7 +13,10 @@ import { MdContentsService } from '../md-contents/md-contents.service';
 })
 export class MdRendererComponent {
 
+  public topics: Topic[] = [];
   public markDownFiles: MarkDownFile[] = [];
+  
+  public selectedTopic: Topic = defaultTopic;
   public selectedMarkDownFile: MarkDownFile = defaultFile;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -30,18 +33,24 @@ export class MdRendererComponent {
   // #region LIFECYCLE
   // --------------------------------------------------------------------------
   ngOnInit(): void {
-    this.loadContents();
+    this.loadTopics();
+    this.loadContents(this.selectedTopic);
   }
   // #endregion
 
   // #region COMPONENT
   // --------------------------------------------------------------------------
+  setTopic(): void {
+    this.selectedMarkDownFile = defaultFile;
+    this.loadContents(this.selectedTopic);
+  }
+  
   setMarkDownFile(mdFile: MarkDownFile): void {
     this.selectedMarkDownFile = mdFile;
   }
 
   hasSubitems(): boolean {
-    return (this.selectedMarkDownFile.subitems?.length > 0)
+    return (this.selectedMarkDownFile.subitems.length > 0)
   }
 
   getSelectedMarkDownFile(): MarkDownFile {
@@ -49,14 +58,26 @@ export class MdRendererComponent {
   }
 
   getFilePath(filename: string): string {
-    return `./assets/markdowns/${filename}.md`;
+    return `./assets/markdowns/${this.selectedTopic.foldername}/${filename}.md`;
   }
   // #endregion
 
   // #region STORAGE
   // --------------------------------------------------------------------------
-  private loadContents(): void {
-    this.mdContentsService.getContents()
+  private loadTopics(): void {
+    this.mdContentsService.getTopics()
+    .subscribe({
+      next: (topics => {
+        this.topics = topics.sort((a, b) => {
+          return this.compare(a.topic, b.topic, true)
+        })
+      }),
+      complete: () => this.setTopic()
+    })
+  }
+  
+  private loadContents(topic: Topic): void {
+    this.mdContentsService.getTopicContents(topic.foldername)
       .subscribe({
         next: (contents => { 
           this.markDownFiles = contents.sort((a, b) => {

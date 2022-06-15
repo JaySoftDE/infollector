@@ -1,3 +1,8 @@
+export interface Topic {
+  topic: string;
+  foldername: string;
+}
+
 export interface MarkDownFile {
   displayname: string;
   filename: string;
@@ -7,6 +12,11 @@ export interface MarkDownFile {
 interface MDFSubItem {
   itemname: string;
   filename: string;
+}
+
+export const defaultTopic = {
+  "topic": "",
+  "foldername": "_default"
 }
 
 export const defaultFile = {

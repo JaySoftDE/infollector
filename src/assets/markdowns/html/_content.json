@@ -1,0 +1,12 @@
+[
+  {
+    "displayname": "HTML",
+    "filename": "",
+    "subitems": [
+      {
+        "itemname": "Force Browser Reload",
+        "filename": "html-force-browser-reload"
+      }
+    ]
+  }
+]

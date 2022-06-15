@@ -4,6 +4,14 @@
     <mat-toolbar>
       <img class="header-logo" src="./assets/jaysoft.svg" alt="JaySoft" />
     </mat-toolbar>
+    <mat-form-field class="topic-selector " color="accent" appearance="fill">
+      <mat-label>Thema</mat-label>
+      <mat-select disableOptionCentering="true" [(ngModel)]="selectedTopic" name="topic" (selectionChange)="setTopic()">
+        <mat-option *ngFor="let topic of topics" [value]="topic">
+          {{topic.topic}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-nav-list color="accent" *ngFor="let markDownFile of markDownFiles">
       <a mat-list-item (click)="setMarkDownFile(markDownFile)">{{markDownFile.displayname}}</a>
     </mat-nav-list>
@@ -16,7 +24,7 @@
       </button>
       <span>Infollector</span>
     </mat-toolbar>
-    <div>
+    <div class="main-content">
       <div *ngIf="hasSubitems(); then WithSubitems else WithoutSubitems"></div>
       <ng-template #WithSubitems>
         <mat-tab-group color="accent" animationDuration="0">

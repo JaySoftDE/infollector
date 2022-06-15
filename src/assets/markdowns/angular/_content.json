@@ -15,11 +15,6 @@
     "subitems": []
   },
   {
-    "displayname": "Flex Info",
-    "filename": "flex-info",
-    "subitems": []
-  },
-  {
     "displayname": "ngx-markdown",
     "filename": "",
     "subitems": [
@@ -34,22 +29,22 @@
     ]
   },
   {
-    "displayname": "HTML",
-    "filename": "",
-    "subitems": [
-      {
-        "itemname": "Force Browser Reload",
-        "filename": "html-force-browser-reload"
-      }
-    ]
-  },
-  {
     "displayname": "Angular Material",
     "filename": "",
     "subitems": [
       {
         "itemname": "Theme Customizing",
         "filename": "angular-material-theme-customizing"
+      }
+    ]
+  },
+  {
+    "displayname": "Angular Forms",
+    "filename": "",
+    "subitems": [
+      {
+        "itemname": "Custom Controls",
+        "filename": "angular-forms-custom-controls"
       }
     ]
   }
