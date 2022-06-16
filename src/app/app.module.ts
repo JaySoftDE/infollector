@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 /* Markdown & Syntax Highlighting */
 import { MarkdownModule } from 'ngx-markdown';
 import { SecurityContext } from '@angular/core';
+
 import { MdDefaultComponent } from './md-default/md-default.component';
 
 @NgModule({

@@ -1,0 +1,16 @@
+[
+  {
+    "displayname": "ngx-markdown",
+    "filename": "",
+    "subitems": [
+      {
+        "itemname": "Allgemein",
+        "filename": "ngx-markdown"
+      },
+      {
+        "itemname": "Syntax Highlighting",
+        "filename": "prism"
+      }
+    ]
+  }
+]

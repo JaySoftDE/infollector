@@ -1,50 +1,46 @@
 [
   {
-    "displayname": "Nützliche Links",
-    "filename": "links",
+    "displayname": "Quellen",
+    "filename": "reference",
     "subitems": []
   },
   {
-    "displayname": "Angular README",
-    "filename": "angular-readme",
+    "displayname": "README",
+    "filename": "readme",
     "subitems": []
   },
   {
-    "displayname": "Angular Compiler",
-    "filename": "angular-compiler",
+    "displayname": "JSON Import",
+    "filename": "json-import",
     "subitems": []
   },
   {
-    "displayname": "ngx-markdown",
+    "displayname": "Compiler",
+    "filename": "compiler",
+    "subitems": []
+  },
+  {
+    "displayname": "Material",
     "filename": "",
     "subitems": [
       {
-        "itemname": "Allgemein",
-        "filename": "ngx-markdown"
+        "itemname": "Quellen",
+        "filename": "material-reference"
       },
       {
-        "itemname": "Syntax Highlighting",
-        "filename": "prism"
-      }
-    ]
-  },
-  {
-    "displayname": "Angular Material",
-    "filename": "",
-    "subitems": [
-      {
         "itemname": "Theme Customizing",
-        "filename": "angular-material-theme-customizing"
+        "filename": "material-theme-customizing"
       }
+
     ]
   },
   {
-    "displayname": "Angular Forms",
+    "displayname": "Forms",
     "filename": "",
     "subitems": [
       {
         "itemname": "Custom Controls",
-        "filename": "angular-forms-custom-controls"
+        "filename": "forms-custom-controls"
       }
     ]
   }
