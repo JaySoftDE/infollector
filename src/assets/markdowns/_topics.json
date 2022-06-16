@@ -10,5 +10,9 @@
   {
     "topic": "SCSS",
     "foldername": "scss"
+  },
+  {
+    "topic": "TypeScript",
+    "foldername": "typescript"
   }
 ]

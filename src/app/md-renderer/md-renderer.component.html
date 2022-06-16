@@ -2,7 +2,7 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
-      <img class="header-logo" src="./assets/jaysoft.svg" alt="JaySoft" />
+      <img src="./assets/jaysoft_logo.png" alt="JaySoft" />
     </mat-toolbar>
     <mat-form-field class="topic-selector " color="accent" appearance="fill">
       <mat-label>Thema</mat-label>
@@ -22,24 +22,43 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Infollector</span>
+      <em>INFOLLECTOR</em>
     </mat-toolbar>
     <div class="main-content">
-      <div *ngIf="hasSubitems(); then WithSubitems else WithoutSubitems"></div>
-      <ng-template #WithSubitems>
-        <mat-tab-group color="accent" animationDuration="0">
-          <mat-tab *ngFor="let subitem of selectedMarkDownFile.subitems" [label]="subitem.itemname">
-            <div class="markdown-content">
-              <markdown [src]="getFilePath(subitem.filename)" ngPreserveWhitespaces></markdown>
-            </div>
-          </mat-tab>
-        </mat-tab-group>
-      </ng-template>
-      <ng-template #WithoutSubitems>
-        <div class="markdown-content">
-          <markdown [src]="getFilePath(selectedMarkDownFile.filename)" ngPreserveWhitespaces></markdown>
-        </div>
-      </ng-template>
-    </div>
+      <ng-container [ngSwitch]="displayType">
+        <ng-container *ngSwitchCase="DisplayTypeEnum.default">
+          <ng-container *ngTemplateOutlet="DefaultDisplay"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="DisplayTypeEnum.noSubitems">
+          <ng-container *ngTemplateOutlet="NoSubitemsDisplay"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="DisplayTypeEnum.subitems">
+          <ng-container *ngTemplateOutlet="SubitemsDisplay"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <ng-container *ngTemplateOutlet="DefaultDisplay"></ng-container>
+        </ng-container>
+      </ng-container>
+      <!-- <div *ngIf="hasSubitems(); then WithSubitems else WithoutSubitems"></div> -->
+     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<!-- Alternative Templates -->
+<ng-template #SubitemsDisplay>
+  <mat-tab-group color="accent" animationDuration="0">
+    <mat-tab *ngFor="let subitem of selectedMarkDownFile.subitems" [label]="subitem.itemname">
+      <div class="markdown-content">
+        <markdown [src]="getFilePath(subitem.filename)" ngPreserveWhitespaces></markdown>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</ng-template>
+<ng-template #NoSubitemsDisplay>
+  <div class="markdown-content">
+    <markdown [src]="getFilePath(selectedMarkDownFile.filename)" ngPreserveWhitespaces></markdown>
+  </div>
+</ng-template>
+<ng-template #DefaultDisplay>
+  <ifx-md-default [mode]="defaultMode"></ifx-md-default>
+</ng-template>

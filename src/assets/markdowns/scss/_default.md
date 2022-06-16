@@ -1,4 +1,0 @@
-# SCSS
-
-&nbsp;  
-&larr; Seitenwahl

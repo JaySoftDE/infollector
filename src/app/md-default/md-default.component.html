@@ -1,0 +1,17 @@
+<div class="flex-page">
+  <img src="./assets/infollector.png" alt="INFOLLECTOR" />
+  <div class="flex-row-element">
+    <ng-container [ngSwitch]="mode">
+      <ng-container *ngSwitchCase="ModeEnum.noHint"></ng-container>
+      <ng-container *ngSwitchCase="ModeEnum.themeHint">
+        <img src="./assets/theme-hint.png" alt="Themenwahl" />
+      </ng-container>
+      <ng-container *ngSwitchCase="ModeEnum.titleHint">
+        <img src="./assets/title-hint.png" alt="Titelwahl" />
+      </ng-container>
+      <ng-container *ngSwitchDefault></ng-container>
+    </ng-container>
+    <em class="align-right">by</em>
+    <img src="./assets/jaysoft_logo.png" alt="JaySoft" />
+  </div>
+</div>

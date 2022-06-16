@@ -1,4 +1,0 @@
-# Angular
-
-&nbsp;  
-&larr; Seitenwahl

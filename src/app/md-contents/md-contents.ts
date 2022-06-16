@@ -14,14 +14,14 @@ interface MDFSubItem {
   filename: string;
 }
 
-export const defaultTopic = {
+export const emptyTopic = {
   "topic": "",
-  "foldername": "_default"
+  "foldername": ""
 }
 
-export const defaultFile = {
+export const emptyFile = {
   "displayname": "",
-  "filename": "_default",
+  "filename": "",
   "subitems": []
 }
 
