@@ -9,6 +9,7 @@
 .flex-row-element {
   display: flex;
   flex-direction: row;
+  flex-flow: wrap-reverse;
   align-items: center;
   column-gap: 10px;
 }
