@@ -5,13 +5,15 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { MdContentsService } from '../md-contents/md-contents.service';
 
-import { Topic, MarkDownFile, emptyTopic, emptyFile } from '../md-contents/md-contents';
-import { DefaultMode } from '../md-default/md-default';
+import { Topic, Title, Page } from '../md-contents/md-contents';
+import { HintType } from '../md-default/md-default';
+import { ErrorType } from '../md-error/md-error';
 
 enum DisplayType {
   default,
-  noSubitems,
-  subitems,
+  onePage,
+  multiPages,
+  error,
 }
 
 @Component({
@@ -22,16 +24,22 @@ enum DisplayType {
 export class MdRendererComponent {
 
   public topics: Topic[] = [];
-  public markDownFiles: MarkDownFile[] = [];
+  public titles: Title[] = [];
+  public pages: Page[] = [];
 
-  public selectedTopic: Topic = emptyTopic;
-  public selectedMarkDownFile: MarkDownFile = emptyFile;
+  public selectedTopic = new Topic;
+  public selectedTitle = new Title;
+  public selectedPage = new Page;
 
   public DisplayTypeEnum = DisplayType;
   public displayType: DisplayType = DisplayType.default;
 
-  public DefaultModeEnum = DefaultMode;
-  public defaultMode: DefaultMode = DefaultMode.noHint;
+  public HintTypeEnum = HintType;
+  public hintType: HintType = HintType.noHint;
+
+  public ErrorTypeEnum = ErrorType;
+  public errorType: ErrorType = ErrorType.none;
+  public errorMessage: string = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -54,47 +62,93 @@ export class MdRendererComponent {
   // #region COMPONENT
   // --------------------------------------------------------------------------
   setTopic(): void {
-    this.selectedMarkDownFile = emptyFile;
-    if (this.selectedTopic.foldername.length) {
-      this.loadContents(this.selectedTopic);
+    // Reset Error
+    this.resetError();
+    // Reset selected Title
+    this.selectedTitle = new Title;
+    if (this.topics[0].topic == 'error') {
+      // Topics Error Handling
+      this.errorType = ErrorType.topic;
+      this.errorMessage = this.topics[0].path;
+      this.setDisplayType();
+    } else if (this.selectedTopic.path.length) {
+      // Topic has been selected
+      this.loadTitles(this.selectedTopic);
     } else {
-      this.setMarkDownFile(this.selectedMarkDownFile);
+      // No Topic has been selected, yet
+      this.setDisplayType();
     }
   }
 
-  setMarkDownFile(mdFile: MarkDownFile): void {
-    this.selectedMarkDownFile = mdFile;
+  setTitle(title: Title): void {
+    // Reset Error
+    this.resetError();
+    // Reset selected Page
+    this.selectedPage = new Page;
+    if (this.titles[0].title == 'error') {
+      // Titles Error Handling
+      this.errorType = ErrorType.title;
+      this.errorMessage = this.titles[0].path;
+      this.setDisplayType();
+    } else if (title.path.length) {
+      // Title has been selected
+      this.selectedTitle = title;
+      this.loadPages(this.selectedTopic, this.selectedTitle);
+    } else {
+      // No Title has been selected, yet
+      this.setDisplayType();
+    }
+  }
+
+  setInitialPage(): void {
+    // Reset Error
+    this.resetError();
+    if (this.pages[0].page == 'error') {
+      // Pages Error Handling
+      this.errorType = ErrorType.page;
+      this.errorMessage = this.pages[0].path;
+    } else {
+      // Select first Page
+      this.selectedPage = this.pages[0];
+    }
     this.setDisplayType();
   }
 
-  getSelectedMarkDownFile(): MarkDownFile {
-    return this.selectedMarkDownFile;
-  }
-
-  getFilePath(filename: string): string {
-    return `./assets/markdowns/${this.selectedTopic.foldername}/${filename}.md`;
+  getMarkDownPath(pagePath: string): string {
+    return `./assets/markdowns/${this.selectedTopic.path}/${this.selectedTitle.path}/${pagePath}.md`;
   }
   // #endregion
 
   // #region DISPLAY
   // --------------------------------------------------------------------------
   private setDisplayType(): void {
-    if (this.hasSubitems()) {
-      this.displayType = DisplayType.subitems;
-    } else if (this.selectedMarkDownFile.filename.length) {
-      this.displayType = DisplayType.noSubitems;
+    if (this.hasError()) {
+      this.displayType = DisplayType.error;
+    } else if (this.hasMultiPages()) {
+      this.displayType = DisplayType.multiPages;
+    } else if (this.selectedPage.path.length) {
+      this.displayType = DisplayType.onePage;
     } else {
       this.displayType = DisplayType.default;
       if (this.selectedTopic.topic.length) {
-        this.defaultMode = this.DefaultModeEnum.titleHint;
+        this.hintType = HintType.titleHint;
       } else {
-        this.defaultMode = this.DefaultModeEnum.themeHint;
+        this.hintType = HintType.themeHint;
       }
     }
   }
 
-  private hasSubitems(): boolean {
-    return (this.selectedMarkDownFile.subitems.length > 0)
+  private hasMultiPages(): boolean {
+    return (this.pages.length > 1)
+  }
+
+  private hasError(): boolean {
+    return (this.errorType != ErrorType.none)
+  }
+
+  private resetError(): void {
+    this.errorType = ErrorType.none;
+    this.errorMessage = '';
   }
   // #endregion
 
@@ -112,15 +166,27 @@ export class MdRendererComponent {
       })
   }
 
-  private loadContents(topic: Topic): void {
-    this.mdContentsService.getTopicContents(topic.foldername)
+  private loadTitles(topic: Topic): void {
+    this.mdContentsService.getTitles(topic.path)
       .subscribe({
         next: (contents => {
-          this.markDownFiles = contents.sort((a, b) => {
-            return this.compare(a.displayname, b.displayname, true)
+          this.titles = contents.sort((a, b) => {
+            return this.compare(a.title, b.title, true)
           })
         }),
-        complete: () => this.setMarkDownFile(this.selectedMarkDownFile)
+        complete: () => this.setTitle(this.selectedTitle)
+      })
+  }
+
+  private loadPages(topic: Topic, title: Title): void {
+    this.mdContentsService.getPages(topic.path, title.path)
+      .subscribe({
+        next: (contents => {
+          this.pages = contents.sort((a, b) => {
+            return this.compare(a.page, b.page, true)
+          })
+        }),
+        complete: () => this.setInitialPage()
       })
   }
   // #endregion

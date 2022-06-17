@@ -1,4 +1,4 @@
-export enum DefaultMode {
+export enum HintType {
   noHint,
   themeHint,
   titleHint

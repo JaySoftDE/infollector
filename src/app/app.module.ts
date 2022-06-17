@@ -21,12 +21,14 @@ import { MarkdownModule } from 'ngx-markdown';
 import { SecurityContext } from '@angular/core';
 
 import { MdDefaultComponent } from './md-default/md-default.component';
+import { MdErrorComponent } from './md-error/md-error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MdRendererComponent,
-    MdDefaultComponent
+    MdDefaultComponent,
+    MdErrorComponent
   ],
   imports: [
     BrowserModule,

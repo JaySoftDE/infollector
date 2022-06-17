@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Quellen",
+    "path": "reference"
+  },
+  {
+    "title": "README",
+    "path": "readme"
+  },
+  {
+    "title": "JSON Import",
+    "path": "json-import"
+  },
+  {
+    "title": "Compiler",
+    "path": "compiler"
+  },
+  {
+    "title": "Material",
+    "path": "material"
+  },
+  {
+    "title": "Observables",
+    "path": "observable"
+  },
+  {
+    "title": "Forms",
+    "path": "forms"
+  }
+]

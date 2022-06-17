@@ -1,0 +1,20 @@
+<ng-container [ngSwitch]="errorType">
+  <ng-container *ngSwitchCase="ErrorTypeEnum.none">
+    KEIN FEHLER!
+  </ng-container>
+  <ng-container *ngSwitchCase="ErrorTypeEnum.topic">
+    FEHLER &apos;Thema&apos;
+    {{errorMessage}}
+  </ng-container>
+  <ng-container *ngSwitchCase="ErrorTypeEnum.title">
+    FEHLER &apos;Titel&apos;
+    {{errorMessage}}
+  </ng-container>
+  <ng-container *ngSwitchCase="ErrorTypeEnum.page">
+    FEHLER &apos;Titel&apos;
+    {{errorMessage}}
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    UNBEKANNTER FEHLER!
+  </ng-container>
+</ng-container>

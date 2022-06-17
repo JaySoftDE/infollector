@@ -1,5 +1,7 @@
 # HTML - Force Browser Reload
 
+Dies verhindert, dass der Browser Dokumente bzw. Bilder cached und kurzfristige Updates nicht anzeigt.
+
 ```html
 <header>
   ...

@@ -1,0 +1,10 @@
+[
+  {
+    "page": "Allgemein",
+    "path": "ngx-markdown"
+  },
+  {
+    "page": "Syntax Highlighting",
+    "path": "prism"
+  }
+]

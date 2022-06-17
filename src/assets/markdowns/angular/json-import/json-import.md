@@ -18,6 +18,8 @@ Hierzu müssen folgende Compiler Options hinzugefügt werden:
 }
 ```
 
+Dann können JSON-Dateien direkt importiert werden:
+
 `any.component.ts`
 
 ```typescript

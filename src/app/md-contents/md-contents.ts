@@ -1,27 +1,14 @@
-export interface Topic {
-  topic: string;
-  foldername: string;
+export class Topic {
+  topic: string = '';
+  path: string = '';
 }
 
-export interface MarkDownFile {
-  displayname: string;
-  filename: string;
-  subitems: MDFSubItem[];
+export class Title {
+  title: string = '';
+  path: string = '';
 }
 
-interface MDFSubItem {
-  itemname: string;
-  filename: string;
+export class Page {
+  page: string = '';
+  path: string = '';
 }
-
-export const emptyTopic = {
-  "topic": "",
-  "foldername": ""
-}
-
-export const emptyFile = {
-  "displayname": "",
-  "filename": "",
-  "subitems": []
-}
-

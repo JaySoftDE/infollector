@@ -1,18 +1,26 @@
 [
   {
     "topic": "Angular",
-    "foldername": "angular"
+    "path": "angular"
   },
   {
     "topic": "HTML",
-    "foldername": "html"
+    "path": "html"
+  },
+  {
+    "topic": "Markdown",
+    "path": "markdown"
   },
   {
     "topic": "SCSS",
-    "foldername": "scss"
+    "path": "scss"
   },
   {
     "topic": "TypeScript",
-    "foldername": "typescript"
+    "path": "typescript"
+  },
+  {
+    "topic": "Does not exist",
+    "path": "does-not-exist"
   }
 ]
