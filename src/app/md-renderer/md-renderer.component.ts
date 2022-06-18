@@ -5,16 +5,14 @@ import { map, shareReplay } from 'rxjs/operators';
 
 import { MdContentsService } from '../md-contents/md-contents.service';
 
-import { Topic, Title, Page } from '../md-contents/md-contents';
+import { Topic, Title, Page, DisplayType } from '../md-contents/md-contents';
 import { HintType } from '../md-default/md-default';
 import { ErrorType } from '../md-error/md-error';
 
-enum DisplayType {
-  default,
-  onePage,
-  multiPages,
-  error,
-}
+import { 
+  MARKDOWNS_PATH,
+  ERROR_INDICATOR
+ } from '../app.const';
 
 @Component({
   selector: 'ifx-md-renderer',
@@ -66,10 +64,11 @@ export class MdRendererComponent {
     this.resetError();
     // Reset selected Title
     this.selectedTitle = new Title;
-    if (this.topics[0].topic == 'error') {
+    if (this.topics[0].topic == ERROR_INDICATOR) {
       // Topics Error Handling
       this.errorType = ErrorType.topic;
       this.errorMessage = this.topics[0].path;
+      this.topics = [];
       this.setDisplayType();
     } else if (this.selectedTopic.path.length) {
       // Topic has been selected
@@ -85,10 +84,11 @@ export class MdRendererComponent {
     this.resetError();
     // Reset selected Page
     this.selectedPage = new Page;
-    if (this.titles[0].title == 'error') {
+    if (this.titles[0].title == ERROR_INDICATOR) {
       // Titles Error Handling
       this.errorType = ErrorType.title;
       this.errorMessage = this.titles[0].path;
+      this.titles = [];
       this.setDisplayType();
     } else if (title.path.length) {
       // Title has been selected
@@ -103,10 +103,11 @@ export class MdRendererComponent {
   setInitialPage(): void {
     // Reset Error
     this.resetError();
-    if (this.pages[0].page == 'error') {
+    if (this.pages[0].page == ERROR_INDICATOR) {
       // Pages Error Handling
       this.errorType = ErrorType.page;
       this.errorMessage = this.pages[0].path;
+      this.pages = [];
     } else {
       // Select first Page
       this.selectedPage = this.pages[0];
@@ -115,7 +116,7 @@ export class MdRendererComponent {
   }
 
   getMarkDownPath(pagePath: string): string {
-    return `./assets/markdowns/${this.selectedTopic.path}/${this.selectedTitle.path}/${pagePath}.md`;
+    return `${MARKDOWNS_PATH}/${this.selectedTopic.path}/${this.selectedTitle.path}/${pagePath}.md`;
   }
   // #endregion
 
@@ -133,7 +134,7 @@ export class MdRendererComponent {
       if (this.selectedTopic.topic.length) {
         this.hintType = HintType.titleHint;
       } else {
-        this.hintType = HintType.themeHint;
+        this.hintType = HintType.topicHint;
       }
     }
   }
@@ -182,9 +183,8 @@ export class MdRendererComponent {
     this.mdContentsService.getPages(topic.path, title.path)
       .subscribe({
         next: (contents => {
-          this.pages = contents.sort((a, b) => {
-            return this.compare(a.page, b.page, true)
-          })
+          // no sorting here - custom order from JSON wanted
+          this.pages = contents;
         }),
         complete: () => this.setInitialPage()
       })

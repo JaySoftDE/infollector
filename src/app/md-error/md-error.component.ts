@@ -9,5 +9,13 @@ import { ErrorType } from './md-error';
 export class MdErrorComponent {
   @Input() errorType: ErrorType = ErrorType.none;
   @Input() errorMessage: string = '';
+  
   public ErrorTypeEnum = ErrorType;
+
+  hasError(): boolean {
+    let err = (this.errorType == ErrorType.topic);
+    err = err || (this.errorType == ErrorType.title);
+    err = err || (this.errorType == ErrorType.page);
+    return err;
+  }
 }

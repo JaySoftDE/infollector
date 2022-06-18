@@ -5,7 +5,13 @@ import { catchError, map, Observable, from, of } from 'rxjs';
 
 import { Topic, Title, Page } from './md-contents';
 
-const markdownsPath = './assets/markdowns';
+import { 
+  MARKDOWNS_PATH,
+  TOPICS_FILENAME,
+  TITLES_FILENAME,
+  PAGES_FILENAME, 
+  ERROR_INDICATOR 
+} from '../app.const';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +25,11 @@ export class MdContentsService {
   getTopics(): Observable<Topic[]> {
     var errResult = new Topic;
     var topicError: Topic[] = [];
-    return this.http.get<Topic[]>(`${markdownsPath}/_topics.json`)
+    return this.http.get<Topic[]>(`${MARKDOWNS_PATH}/${TOPICS_FILENAME}`)
     .pipe(
       catchError(err => {
         console.log(err);
-        errResult.topic = 'error';
+        errResult.topic = ERROR_INDICATOR;
         errResult.path = err.url;
         topicError.push(errResult);
         return of(topicError);
@@ -34,11 +40,11 @@ export class MdContentsService {
   getTitles(topicPath: string): Observable<Title[]> {
     var errResult = new Title;
     var titleError: Title[] = [];
-    return this.http.get<Title[]>(`${markdownsPath}/${topicPath}/_titles.json`)
+    return this.http.get<Title[]>(`${MARKDOWNS_PATH}/${topicPath}/${TITLES_FILENAME}`)
     .pipe(
       catchError(err => {
         console.log(err);
-        errResult.title = 'error';
+        errResult.title = ERROR_INDICATOR;
         errResult.path = err.url;
         titleError.push(errResult);
         return of(titleError);
@@ -49,11 +55,11 @@ export class MdContentsService {
   getPages(topicPath: string, titlePath: string): Observable<Page[]> {
     var errResult = new Page;
     var pageError: Page[] = [];
-    return this.http.get<Page[]>(`${markdownsPath}/${topicPath}/${titlePath}/_pages.json`)
+    return this.http.get<Page[]>(`${MARKDOWNS_PATH}/${topicPath}/${titlePath}/${PAGES_FILENAME}`)
     .pipe(
       catchError(err => {
         console.log(err);
-        errResult.page = 'error';
+        errResult.page = ERROR_INDICATOR;
         errResult.path = err.url;
         pageError.push(errResult);
         return of(pageError);

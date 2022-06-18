@@ -18,9 +18,5 @@
   {
     "topic": "TypeScript",
     "path": "typescript"
-  },
-  {
-    "topic": "Does not exist",
-    "path": "does-not-exist"
   }
 ]

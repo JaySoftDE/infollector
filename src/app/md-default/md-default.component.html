@@ -3,11 +3,11 @@
   <div class="flex-row-element">
     <ng-container [ngSwitch]="hintType">
       <ng-container *ngSwitchCase="HintTypeEnum.noHint"></ng-container>
-      <ng-container *ngSwitchCase="HintTypeEnum.themeHint">
-        <img src="./assets/theme-hint.png" alt="Themenwahl" />
+      <ng-container *ngSwitchCase="HintTypeEnum.topicHint">
+        <img src="./assets/hint-topic.png" alt="Themenwahl" />
       </ng-container>
       <ng-container *ngSwitchCase="HintTypeEnum.titleHint">
-        <img src="./assets/title-hint.png" alt="Titelwahl" />
+        <img src="./assets/hint-title.png" alt="Titelwahl" />
       </ng-container>
       <ng-container *ngSwitchDefault></ng-container>
     </ng-container>

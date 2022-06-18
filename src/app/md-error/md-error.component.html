@@ -1,20 +1,20 @@
-<ng-container [ngSwitch]="errorType">
-  <ng-container *ngSwitchCase="ErrorTypeEnum.none">
-    KEIN FEHLER!
-  </ng-container>
-  <ng-container *ngSwitchCase="ErrorTypeEnum.topic">
-    FEHLER &apos;Thema&apos;
+<div class="flex-page">
+  <img src="./assets/bug.png" alt="Bug" />
+    <ng-container [ngSwitch]="errorType">
+      <ng-container *ngSwitchCase="ErrorTypeEnum.none"></ng-container>
+      <ng-container *ngSwitchCase="ErrorTypeEnum.topic">
+        <img src="./assets/error-topic.png" alt="Themenliste" />
+      </ng-container>
+      <ng-container *ngSwitchCase="ErrorTypeEnum.title">
+        <img src="./assets/error-title.png" alt="Titelliste" />
+      </ng-container>
+      <ng-container *ngSwitchCase="ErrorTypeEnum.page">
+        <img src="./assets/error-page.png" alt="Seitenliste" />
+      </ng-container>
+      <ng-container *ngSwitchDefault></ng-container>
+    </ng-container>
+  <ng-container *ngIf="hasError()">
+    <h2>Datei nicht gefunden:</h2>
     {{errorMessage}}
   </ng-container>
-  <ng-container *ngSwitchCase="ErrorTypeEnum.title">
-    FEHLER &apos;Titel&apos;
-    {{errorMessage}}
-  </ng-container>
-  <ng-container *ngSwitchCase="ErrorTypeEnum.page">
-    FEHLER &apos;Titel&apos;
-    {{errorMessage}}
-  </ng-container>
-  <ng-container *ngSwitchDefault>
-    UNBEKANNTER FEHLER!
-  </ng-container>
-</ng-container>
+</div>

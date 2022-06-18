@@ -12,3 +12,11 @@ export class Page {
   page: string = '';
   path: string = '';
 }
+
+export enum DisplayType {
+  default,
+  onePage,
+  multiPages,
+  error,
+}
+

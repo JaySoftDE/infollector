@@ -1,5 +1,5 @@
 export enum HintType {
   noHint,
-  themeHint,
+  topicHint,
   titleHint
 }

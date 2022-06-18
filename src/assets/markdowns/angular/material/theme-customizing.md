@@ -1,4 +1,4 @@
-# Angular Matierial Theme Customizing
+# Angular Material Theme Customizing
 
 ```sass
 @use '@angular/material' as mat
