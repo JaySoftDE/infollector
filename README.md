@@ -8,7 +8,7 @@ Simple tool for displaying a three-level-structure of markdown files.
 2. Titles (sorted ascending)
 3. Pages  (custom order from JSON)
 
-![Three-Level-Structure](.src/assets/three-levels-structure.png)
+![Three-Level-Structure](./src/assets/three-levels-structure.png)
 
 ```js
 └ assets
