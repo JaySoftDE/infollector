@@ -1,5 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ErrorType } from './md-error';
+import { InfollectorError, ErrorType, ErrorSubtype } from './md-error';
+
+import { 
+  LBL_ERROR_FILE,
+  LBL_ERROR_STRUCTURE,
+ } from '../app.const';
 
 @Component({
   selector: 'ifx-md-error',
@@ -7,15 +12,15 @@ import { ErrorType } from './md-error';
   styleUrls: ['./md-error.component.scss']
 })
 export class MdErrorComponent {
-  @Input() errorType: ErrorType = ErrorType.none;
-  @Input() errorMessage: string = '';
+  @Input() infollectorError= new InfollectorError;
   
   public ErrorTypeEnum = ErrorType;
+  public ErrorSubTypeEnum = ErrorSubtype;
+
+  public errMsgFile = LBL_ERROR_FILE;
+  public errMsgStructure = LBL_ERROR_STRUCTURE;
 
   hasError(): boolean {
-    let err = (this.errorType == ErrorType.topic);
-    err = err || (this.errorType == ErrorType.title);
-    err = err || (this.errorType == ErrorType.page);
-    return err;
+    return (this.infollectorError.type != ErrorType.none);
   }
 }

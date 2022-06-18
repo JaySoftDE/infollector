@@ -1,6 +1,6 @@
 <div class="flex-page">
   <img src="./assets/bug.png" alt="Bug" />
-    <ng-container [ngSwitch]="errorType">
+    <ng-container [ngSwitch]="infollectorError.type">
       <ng-container *ngSwitchCase="ErrorTypeEnum.none"></ng-container>
       <ng-container *ngSwitchCase="ErrorTypeEnum.topic">
         <img src="./assets/error-topic.png" alt="Themenliste" />
@@ -14,7 +14,16 @@
       <ng-container *ngSwitchDefault></ng-container>
     </ng-container>
   <ng-container *ngIf="hasError()">
-    <h2>Datei nicht gefunden:</h2>
-    {{errorMessage}}
+    <ng-container [ngSwitch]="infollectorError.subtype">
+      <ng-container *ngSwitchCase="ErrorSubTypeEnum.none"></ng-container>
+      <ng-container *ngSwitchCase="ErrorSubTypeEnum.file">
+        <h2>{{errMsgFile}}:</h2>
+      </ng-container>
+      <ng-container *ngSwitchCase="ErrorSubTypeEnum.structure">
+        <h2>{{errMsgStructure}}:</h2>
+      </ng-container>
+      <ng-container *ngSwitchDefault></ng-container>
+    </ng-container>
+    {{infollectorError.message}}
   </ng-container>
 </div>

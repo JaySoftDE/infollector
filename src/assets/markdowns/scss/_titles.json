@@ -1,10 +1,10 @@
 [
   {
-    "displayname": "Quellen",
-    "filename": "reference"
+    "title": "Quellen",
+    "path": "reference"
   },
   {
-    "displayname": "Display: Flex",
-    "filename": "display-flex"
+    "title": "Display: Flex",
+    "path": "display-flex"
   }
 ]

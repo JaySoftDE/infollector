@@ -7,11 +7,12 @@ import { MdContentsService } from '../md-contents/md-contents.service';
 
 import { Topic, Title, Page, DisplayType } from '../md-contents/md-contents';
 import { HintType } from '../md-default/md-default';
-import { ErrorType } from '../md-error/md-error';
+import { InfollectorError, ErrorType, ErrorSubtype } from '../md-error/md-error';
 
 import { 
   MARKDOWNS_PATH,
-  ERROR_INDICATOR
+  ERROR_PREFIX,
+  ERROR_SUFFIX_FILE
  } from '../app.const';
 
 @Component({
@@ -35,9 +36,9 @@ export class MdRendererComponent {
   public HintTypeEnum = HintType;
   public hintType: HintType = HintType.noHint;
 
-  public ErrorTypeEnum = ErrorType;
-  public errorType: ErrorType = ErrorType.none;
-  public errorMessage: string = '';
+  public infollectorError = new InfollectorError;
+  // public errorType: ErrorType = ErrorType.none;
+  // public errorMessage: string = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -64,10 +65,9 @@ export class MdRendererComponent {
     this.resetError();
     // Reset selected Title
     this.selectedTitle = new Title;
-    if (this.topics[0].topic == ERROR_INDICATOR) {
+    if (this.topics[0].topic.startsWith(ERROR_PREFIX)) {
       // Topics Error Handling
-      this.errorType = ErrorType.topic;
-      this.errorMessage = this.topics[0].path;
+      this.setError(ErrorType.topic, this.topics[0].topic, this.topics[0].path);
       this.topics = [];
       this.setDisplayType();
     } else if (this.selectedTopic.path.length) {
@@ -84,10 +84,9 @@ export class MdRendererComponent {
     this.resetError();
     // Reset selected Page
     this.selectedPage = new Page;
-    if (this.titles[0].title == ERROR_INDICATOR) {
+    if (this.titles[0].title.startsWith(ERROR_PREFIX)) {
       // Titles Error Handling
-      this.errorType = ErrorType.title;
-      this.errorMessage = this.titles[0].path;
+      this.setError(ErrorType.title, this.titles[0].title, this.titles[0].path);
       this.titles = [];
       this.setDisplayType();
     } else if (title.path.length) {
@@ -103,10 +102,9 @@ export class MdRendererComponent {
   setInitialPage(): void {
     // Reset Error
     this.resetError();
-    if (this.pages[0].page == ERROR_INDICATOR) {
+    if (this.pages[0].page.startsWith(ERROR_PREFIX)) {
       // Pages Error Handling
-      this.errorType = ErrorType.page;
-      this.errorMessage = this.pages[0].path;
+      this.setError(ErrorType.page, this.pages[0].page, this.pages[0].path);
       this.pages = [];
     } else {
       // Select first Page
@@ -141,15 +139,6 @@ export class MdRendererComponent {
 
   private hasMultiPages(): boolean {
     return (this.pages.length > 1)
-  }
-
-  private hasError(): boolean {
-    return (this.errorType != ErrorType.none)
-  }
-
-  private resetError(): void {
-    this.errorType = ErrorType.none;
-    this.errorMessage = '';
   }
   // #endregion
 
@@ -188,6 +177,27 @@ export class MdRendererComponent {
         }),
         complete: () => this.setInitialPage()
       })
+  }
+  // #endregion
+
+  // #region ERROR HANDLING
+  // --------------------------------------------------------------------------
+  private resetError(): void {
+    this.infollectorError = new InfollectorError;
+  }
+  
+  private setError(type: ErrorType, err: string, msg: string): void {
+    this.infollectorError.type = type;
+    if (err.endsWith(ERROR_SUFFIX_FILE)) {
+      this.infollectorError.subtype = ErrorSubtype.file;
+    } else {  // must end with ERROR_SUFFIX_STRUCTURE then
+      this.infollectorError.subtype = ErrorSubtype.structure;
+    } 
+    this.infollectorError.message = msg;
+  }
+  
+  private hasError(): boolean {
+    return (this.infollectorError.type != ErrorType.none)
   }
   // #endregion
 
