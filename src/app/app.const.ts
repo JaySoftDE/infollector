@@ -1,5 +1,9 @@
-export const MARKDOWNS_PATH = './assets/markdowns';
+export const MARKDOWNS_PATH_DEFAULT = './assets/markdowns-demo';
 
+export const MARKDOWNS_PATH_DEV = './markdowns';
+export const MARKDOWNS_PATH_PROD = 'http://infollector.jaysoft.de/markdowns';
+
+export const COLLECTIONS_FILENAME = '_collections.json';
 export const TOPICS_FILENAME = '_topics.json';
 export const TITLES_FILENAME = '_titles.json';
 export const PAGES_FILENAME = '_pages.json';

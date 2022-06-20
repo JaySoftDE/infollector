@@ -10,7 +10,7 @@ import { HintType } from '../md-default/md-default';
 import { InfollectorError, ErrorType, ErrorSubtype } from '../md-error/md-error';
 
 import { 
-  MARKDOWNS_PATH,
+  MARKDOWNS_PATH_DEFAULT,
   ERROR_PREFIX,
   ERROR_SUFFIX_FILE
  } from '../app.const';
@@ -22,6 +22,8 @@ import {
 })
 export class MdRendererComponent {
 
+  private markdownsPath: string = MARKDOWNS_PATH_DEFAULT;
+
   public topics: Topic[] = [];
   public titles: Title[] = [];
   public pages: Page[] = [];
@@ -29,6 +31,7 @@ export class MdRendererComponent {
   public selectedTopic = new Topic;
   public selectedTitle = new Title;
   public selectedPage = new Page;
+  public selectedTab: number = 0;
 
   public DisplayTypeEnum = DisplayType;
   public displayType: DisplayType = DisplayType.default;
@@ -37,8 +40,6 @@ export class MdRendererComponent {
   public hintType: HintType = HintType.noHint;
 
   public infollectorError = new InfollectorError;
-  // public errorType: ErrorType = ErrorType.none;
-  // public errorMessage: string = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -54,6 +55,7 @@ export class MdRendererComponent {
   // #region LIFECYCLE
   // --------------------------------------------------------------------------
   ngOnInit(): void {
+    this.markdownsPath = this.mdContentsService.getMarkdownsPath();
     this.loadTopics();
   }
   // #endregion
@@ -109,12 +111,13 @@ export class MdRendererComponent {
     } else {
       // Select first Page
       this.selectedPage = this.pages[0];
+      this.selectedTab = 0;
     }
     this.setDisplayType();
   }
 
   getMarkDownPath(pagePath: string): string {
-    return `${MARKDOWNS_PATH}/${this.selectedTopic.path}/${this.selectedTitle.path}/${pagePath}.md`;
+    return `${this.markdownsPath}/${this.selectedTopic.path}/${this.selectedTitle.path}/${pagePath}.md`;
   }
   // #endregion
 

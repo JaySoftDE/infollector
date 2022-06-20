@@ -6,7 +6,7 @@ Hierzu müssen folgende Compiler Options hinzugefügt werden:
 
 `tsconfig.json`
 
-```json
+```js
 {
   ...
   "compilerOptions": {

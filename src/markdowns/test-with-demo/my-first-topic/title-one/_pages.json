@@ -1,0 +1,14 @@
+[
+  {
+    "page": "Page A",
+    "path": "page-a"
+  },
+  {
+    "page": "Page B",
+    "path": "page-b"
+  },
+  {
+    "page": "Page C",
+    "path": "page-c"
+  }
+]

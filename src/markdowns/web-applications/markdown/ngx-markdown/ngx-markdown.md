@@ -12,8 +12,9 @@ npm install ngx-markdown --save
 
 `angular.json`
 
-```json
-...
+```js
+{
+  ...
   "styles": [
     "./node_modules/bootstrap/dist/css/bootstrap.min.css",
     "./node_modules/prismjs/themes/prism-tomorrow.min.css",
@@ -28,7 +29,8 @@ npm install ngx-markdown --save
     "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.js",
     "./node_modules/prismjs/plugins/line-highlight/prism-line-highlight.min.js"
   ]
-...
+  ...
+}
 ```
 
 `app.modules.ts`

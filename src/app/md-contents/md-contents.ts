@@ -1,3 +1,8 @@
+export class Collection {
+  collection: string = '';
+  path: string = '';
+}
+
 export class Topic {
   topic: string = '';
   path: string = '';

@@ -42,17 +42,20 @@
           <ng-container *ngTemplateOutlet="DefaultDisplay"></ng-container>
         </ng-container>
       </ng-container>
-     </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
 <!-- Alternative Templates -->
 <ng-template #MultiPagesDisplay>
-  <mat-tab-group color="accent" animationDuration="0">
+  <mat-tab-group color="accent" animationDuration="0" [(selectedIndex)]="selectedTab">
     <mat-tab *ngFor="let page of pages" [label]="page.page">
-      <div class="markdown-content">
-        <markdown [src]="getMarkDownPath(page.path)" ngPreserveWhitespaces></markdown>
-      </div>
+      <!-- Lazy Loading Tabs -->
+      <ng-template matTabContent>
+        <div class="markdown-content">
+          <markdown [src]="getMarkDownPath(page.path)" ngPreserveWhitespaces></markdown>
+        </div>
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </ng-template>
