@@ -2,7 +2,7 @@
 
 ## Release 1.3.0 / 26-Jun-2022
 
-[See Help](.src/assets/markdowns/infollector-help/help/help/help.md)
+[See Help](./src/assets/markdowns/infollector-help/help/help/help.md)
 
 Simple tool for displaying a four-levels-structure of markdown files.
 
