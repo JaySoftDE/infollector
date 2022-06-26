@@ -24,13 +24,13 @@
       <a mat-list-item (click)="setTitle(title)">{{title.title}}</a>
     </mat-nav-list>
     <div class="sidenav-footer">
-      <button mat-button (click)="openSettings()">
+      <button mat-button matTooltip="Settings" (click)="openSettings()">
         <mat-icon>tune</mat-icon>
       </button>
-      <button mat-button (click)="openHelp()">
+      <button mat-button matTooltip="Help" (click)="openHelp()">
         <mat-icon>help_outlined</mat-icon>
       </button>
-      <button mat-button (click)="openInfo()">
+      <button mat-button matTooltip="Info" (click)="openInfo()">
         <mat-icon>info_outlined</mat-icon>
       </button>
     </div>

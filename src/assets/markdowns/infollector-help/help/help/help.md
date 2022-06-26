@@ -5,7 +5,9 @@
 3. Titles       (sorted ascending)
 4. Pages        (custom order from JSON)
 
-![Four-Level-Structure](./assets/four-levels-structure.png)
+![Four-Levels-Structure](./assets/infollector-four-levels-structure.png)
+
+## Structure of Markdown Files
 
 ```js
 <root>
@@ -26,6 +28,8 @@
 ├ ...
 └ _collections.json
 ```
+
+## Format of Structuring JSON
 
 ```js
 _collections.json

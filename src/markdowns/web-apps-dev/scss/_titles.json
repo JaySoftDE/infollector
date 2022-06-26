@@ -6,5 +6,9 @@
   {
     "title": "Display: Flex",
     "path": "display-flex"
+  },
+  {
+    "title": "Grundlagen",
+    "path": "basics"
   }
 ]
