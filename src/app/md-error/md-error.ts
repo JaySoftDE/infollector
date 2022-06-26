@@ -6,6 +6,7 @@ export class InfollectorError {
 
 export enum ErrorType {
   none,
+  collection,
   topic,
   title,
   page,

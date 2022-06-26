@@ -1,0 +1,14 @@
+.settings-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 20px;
+}
+
+.settings-form-field {
+  width: 600px;
+}
+
+.action-spacer {
+  flex: 1 1 auto;
+}

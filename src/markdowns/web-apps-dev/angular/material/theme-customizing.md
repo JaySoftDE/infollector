@@ -7,9 +7,9 @@
 
 $my-primary: mat.define-palette(mat.$indigo-palette, 900)
 $my-accent: mat.define-palette(mat.$cyan-palette, A200, A100, A400)
-$my-warn: mat.define-palette(mat.$cyan-palette, 600)
+$my-warn: mat.define-palette(mat.$pink-palette, 600)
 
-$my-theme: mat.define-light-theme((
+$my-theme: mat.define-dark-theme((
  color: (
    primary: $my-primary,
    accent: $my-accent,
@@ -21,7 +21,7 @@ $my-theme: mat.define-light-theme((
 @include mat.core-theme($my-theme)
 
 // Emit styles for MatButton based on `$my-theme`. Because the configuration
-// passed to `define-light-theme` omits typography, `button-theme` will not
+// passed to `define-dark-theme` omits typography, `button-theme` will not
 // emit any typography styles.
 @include mat.button-theme($my-theme)
 

@@ -11,7 +11,7 @@
   padding-left: 30px;
 }
 
-.topic-selector {
+.sidenav-item {
   width: 249px;
 }
 
@@ -21,6 +21,19 @@
   z-index: 1;
 }
 
+.toolbar-img {
+  max-width: 150px;
+}
+
+.sidenav-footer {
+  position: fixed;
+  bottom: 5px;
+  width: 249px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .main-content {
   padding-top: 5px;
 }
@@ -28,7 +41,3 @@
 .markdown-content {
   padding: 20px;
 }
-
-a [href] {
-  color:rgb(24, 255, 255)
-} 

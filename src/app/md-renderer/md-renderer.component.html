@@ -2,9 +2,17 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
-      <img src="./assets/jaysoft_logo.png" alt="JaySoft" />
+      <img src="./assets/jaysoft-logo.png" alt="JaySoft" />
     </mat-toolbar>
-    <mat-form-field class="topic-selector " color="accent" appearance="fill">
+    <mat-form-field class="sidenav-item" color="accent" appearance="fill">
+      <mat-label>Sammlung</mat-label>
+      <mat-select disableOptionCentering="true" [(ngModel)]="selectedCollection" name="collection" (selectionChange)="setCollection()">
+        <mat-option *ngFor="let collection of collections" [value]="collection">
+          {{collection.collection}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="sidenav-item" color="accent" appearance="fill">
       <mat-label>Thema</mat-label>
       <mat-select disableOptionCentering="true" [(ngModel)]="selectedTopic" name="topic" (selectionChange)="setTopic()">
         <mat-option *ngFor="let topic of topics" [value]="topic">
@@ -15,6 +23,17 @@
     <mat-nav-list color="accent" *ngFor="let title of titles">
       <a mat-list-item (click)="setTitle(title)">{{title.title}}</a>
     </mat-nav-list>
+    <div class="sidenav-footer">
+      <button mat-button (click)="openSettings()">
+        <mat-icon>tune</mat-icon>
+      </button>
+      <button mat-button (click)="openHelp()">
+        <mat-icon>help_outlined</mat-icon>
+      </button>
+      <button mat-button (click)="openInfo()">
+        <mat-icon>info_outlined</mat-icon>
+      </button>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -22,7 +41,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <em>INFOLLECTOR</em>
+      <img src="./assets/infollector-header.png" alt="INFOLLECTOR" class="toolbar-img" />
     </mat-toolbar>
     <div class="main-content">
       <ng-container [ngSwitch]="displayType">
@@ -53,7 +72,7 @@
       <!-- Lazy Loading Tabs -->
       <ng-template matTabContent>
         <div class="markdown-content">
-          <markdown [src]="getMarkDownPath(page.path)" ngPreserveWhitespaces></markdown>
+          <markdown [src]="getMarkdownPath(page.path)" ngPreserveWhitespaces></markdown>
         </div>
       </ng-template>
     </mat-tab>
@@ -61,7 +80,7 @@
 </ng-template>
 <ng-template #OnePageDisplay>
   <div class="markdown-content">
-    <markdown [src]="getMarkDownPath(selectedPage.path)" ngPreserveWhitespaces></markdown>
+    <markdown [src]="getMarkdownPath(selectedPage.path)" ngPreserveWhitespaces></markdown>
   </div>
 </ng-template>
 <ng-template #DefaultDisplay>

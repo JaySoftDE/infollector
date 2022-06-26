@@ -1,10 +1,18 @@
 [
   {
-    "collection": "Web Applications Development",
-    "path": "web-applications"
+    "collection": "Web Apps Development",
+    "path": "web-apps-dev"
   },
   {
-    "collection": "Demo Test",
+    "collection": "Swift Development",
+    "path": "test-with-demo"
+  },
+  {
+    "collection": "AWS",
+    "path": "test-with-demo"
+  },
+  {
+    "collection": "Azure",
     "path": "test-with-demo"
   }
 ]

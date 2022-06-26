@@ -1,19 +1,25 @@
-<div class="flex-page">
-  <img src="./assets/infollector.png" alt="INFOLLECTOR" />
-  <div class="flex-row-element">
+<div class="flex-column">
+  <div class="flex-row-top">
     <ng-container [ngSwitch]="hintType">
       <ng-container *ngSwitchCase="HintTypeEnum.noHint"></ng-container>
+      <ng-container *ngSwitchCase="HintTypeEnum.collectionHint">
+        <img src="./assets/arrow-north-west.png" alt="oben links" />
+        <img src="./assets/hint-collection.png" alt="Sammlungswahl" />
+      </ng-container>
       <ng-container *ngSwitchCase="HintTypeEnum.topicHint">
+        <img src="./assets/arrow-west.png" alt="links" />
         <img src="./assets/hint-topic.png" alt="Themenwahl" />
       </ng-container>
       <ng-container *ngSwitchCase="HintTypeEnum.titleHint">
+        <img src="./assets/arrow-south-west.png" alt="unten links" />
         <img src="./assets/hint-title.png" alt="Titelwahl" />
       </ng-container>
       <ng-container *ngSwitchDefault></ng-container>
     </ng-container>
-    <span class="align-right">
-      <em>by&nbsp;&nbsp;&nbsp;</em>
-      <img src="./assets/jaysoft_logo.png" alt="JaySoft" />
-    </span>
+  </div>
+  <img src="./assets/infollector-splash.png" alt="INFOLLECTOR" />
+  <div class="flex-row-bottom">
+    <em>by</em>
+    <img src="./assets/jaysoft-logo.png" alt="JaySoft" />
   </div>
 </div>

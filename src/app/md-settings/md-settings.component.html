@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+
+<mat-dialog-content class="settings-form-container" [formGroup]="settingsForm">
+  <mat-form-field class="settings-form-field" color="accent" appearance="fill" hintLabel="Max. 200 Zeichen">
+    <mat-label>Markdowns Root</mat-label>
+    <input #rootInput matInput formControlName="root" maxlength="200">
+    <mat-hint align="end">{{rootInput.value?.length || 0}}/200</mat-hint>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button tabindex="-1" mat-stroked-button color="warn" (click)="undo()"
+    [disabled]="settingsForm.pristine">Zurücksetzen</button>
+  <button tabindex="-1" mat-stroked-button color="accent" (click)="demoRoot()"
+    [disabled]="isDemoRoot()">Demo&nbsp;Root</button>
+  <span class="action-spacer"></span>
+  <button tabindex="-1" mat-stroked-button (click)="close()">Abbrechen</button>
+  <button mat-flat-button color="accent" (click)="save()"
+    [disabled]="settingsForm.invalid || settingsForm.pristine">Speichern</button>
+</mat-dialog-actions>

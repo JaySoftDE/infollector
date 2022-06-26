@@ -4,11 +4,11 @@
     "path": "paginator"
   },
   {
-    "page": "Quellen",
-    "path": "reference"
-  },
-  {
     "page": "Theme Customizing",
     "path": "theme-customizing"
+  },
+  {
+    "page": "Quellen",
+    "path": "reference"
   }
 ]

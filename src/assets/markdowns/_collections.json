@@ -1,0 +1,14 @@
+[
+  {
+    "collection": "Demo",
+    "path": "infollector-demo"
+  },
+  {
+    "collection": "Help",
+    "path": "infollector-help"
+  },
+  {
+    "collection": "Info",
+    "path": "infollector-info"
+  }
+]

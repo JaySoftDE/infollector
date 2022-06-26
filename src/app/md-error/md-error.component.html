@@ -2,14 +2,17 @@
   <img src="./assets/bug.png" alt="Bug" />
     <ng-container [ngSwitch]="infollectorError.type">
       <ng-container *ngSwitchCase="ErrorTypeEnum.none"></ng-container>
+      <ng-container *ngSwitchCase="ErrorTypeEnum.collection">
+        <img src="./assets/error-collection.png" alt="Problem mit Sammlungsliste" />
+      </ng-container>
       <ng-container *ngSwitchCase="ErrorTypeEnum.topic">
-        <img src="./assets/error-topic.png" alt="Themenliste" />
+        <img src="./assets/error-topic.png" alt="Problem mit Themenliste" />
       </ng-container>
       <ng-container *ngSwitchCase="ErrorTypeEnum.title">
-        <img src="./assets/error-title.png" alt="Titelliste" />
+        <img src="./assets/error-title.png" alt="Problem mit Titelliste" />
       </ng-container>
       <ng-container *ngSwitchCase="ErrorTypeEnum.page">
-        <img src="./assets/error-page.png" alt="Seitenliste" />
+        <img src="./assets/error-page.png" alt="Problem mit Seitenliste" />
       </ng-container>
       <ng-container *ngSwitchDefault></ng-container>
     </ng-container>

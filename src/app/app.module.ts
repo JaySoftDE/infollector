@@ -1,25 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdRendererComponent } from './md-renderer/md-renderer.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { MaterialModule } from './material/material.module';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 /* Markdown & Syntax Highlighting */
 import { MarkdownModule } from 'ngx-markdown';
 import { SecurityContext } from '@angular/core';
 
+import { AppComponent } from './app.component';
+import { MdRendererComponent } from './md-renderer/md-renderer.component';
+import { MdSettingsComponent } from './md-settings/md-settings.component';
 import { MdDefaultComponent } from './md-default/md-default.component';
 import { MdErrorComponent } from './md-error/md-error.component';
 
@@ -27,23 +22,16 @@ import { MdErrorComponent } from './md-error/md-error.component';
   declarations: [
     AppComponent,
     MdRendererComponent,
+    MdSettingsComponent,
     MdDefaultComponent,
-    MdErrorComponent
+    MdErrorComponent,
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    LayoutModule,
+    MaterialModule,
     HttpClientModule,
     FormsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatSelectModule,
+    ReactiveFormsModule,
     MarkdownModule.forRoot({
       // This enables external MD-files
       loader: HttpClient,
@@ -51,7 +39,20 @@ import { MdErrorComponent } from './md-error/md-error.component';
       sanitize: SecurityContext.NONE,
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { 
+      duration: 2500 
+    }},
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { 
+      hasBackdrop: true,
+      autoFocus: 'first-tabbable',
+    }},
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { 
+      appearance: 'standard', 
+      floatLevel: 'always', 
+      hideRequiredMarker: true 
+    }},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

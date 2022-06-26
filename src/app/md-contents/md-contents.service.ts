@@ -5,12 +5,9 @@ import { Observable, catchError, map, of } from 'rxjs';
 
 import { Collection, Topic, Title, Page } from './md-contents';
 
-import { environment } from 'src/environments/environment';
+import { MdSettingsService } from '../md-settings/md-settings.service';
 
 import {
-  MARKDOWNS_PATH_DEFAULT,
-  MARKDOWNS_PATH_DEV,
-  MARKDOWNS_PATH_PROD,
   COLLECTIONS_FILENAME,
   TOPICS_FILENAME,
   TITLES_FILENAME,
@@ -25,95 +22,59 @@ import {
 })
 export class MdContentsService {
 
-  private isProd = environment.production;
-  
-  private collectionPath: string = '';
-  private markDownsPath: string = MARKDOWNS_PATH_DEFAULT;
+  private markdownsRoot: string = '';
 
   constructor(
     private http: HttpClient,
-  ) { 
-    
-    // Local Storage Tests
-    this.setItem('infollector.collection.name', 'Web Applications Development');
-    this.setItem('infollector.collection.path', 'web-applications');
-
-    this.collectionPath = this.getItem('infollector.collection.path');
-
-
-    this.setMarkdownsPath();
+    private mdSettingsService: MdSettingsService,
+  ) {
+    this.markdownsRoot = this.mdSettingsService.getMarkdownsRoot();
   }
 
-  public setItem(key: string, data: string): void {
-    localStorage.setItem(key, JSON.stringify(data));
+  reInit(): void {
+    this.markdownsRoot = this.mdSettingsService.getMarkdownsRoot();
   }
 
-  public getItem(key: string): string {
-    return JSON.parse(String(localStorage.getItem(key)));
-  }
-
-  public removeItem(key: string): void {
-    localStorage.removeItem(key);
-  }
-
-  public clear() {
-    localStorage.clear();
-  }
-
-  // #region GET MARKDOWNS ROOT
-  // --------------------------------------------------------------------------
-  getMarkdownsPath(): string {
-    return this.markDownsPath;
-  }
-
-  private setMarkdownsPath(): void {
-    if (this.isProd) {
-      this.markDownsPath = MARKDOWNS_PATH_PROD;
-    } else {
-      this.markDownsPath = MARKDOWNS_PATH_DEV;
-    }
-    this.markDownsPath += `/${this.collectionPath}`;
-
-    console.log('Current Markdowns Root:', this.markDownsPath);
-  }
-  // #endregion
-  
-  // #region GET MARKDOWNS CONTENTS
+  // #region MARKDOWNS CONTENTS
   // --------------------------------------------------------------------------
   getCollections(): Observable<Collection[]> {
     var errResult = new Collection;
-    var topicError: Collection[] = [];
-    const url = `${this.markDownsPath}/${COLLECTIONS_FILENAME}`;
+    var collectionError: Collection[] = [];
+    const url = `${this.markdownsRoot}/${COLLECTIONS_FILENAME}`;
     return this.http.get<Collection[]>(url)
       .pipe(
         map(result => {
           if (this.isCollectionsJson(result)) {
-            return result;
+            return result.sort((a, b) => {
+              return this.compare(a.collection, b.collection, true)
+            });
           } else {
             errResult.collection = `${ERROR_PREFIX}.${ERROR_SUFFIX_STRUCTURE}`;
             errResult.path = url;
-            topicError.push(errResult);
-            return topicError;
+            collectionError.push(errResult);
+            return collectionError;
           }
         }),
         catchError(err => {
           errResult.collection = `${ERROR_PREFIX}.${ERROR_SUFFIX_FILE}`;
           errResult.path = err.url;
-          topicError.push(errResult);
-          return of(topicError);
+          collectionError.push(errResult);
+          return of(collectionError);
         })
       );
   }
 
-  getTopics(): Observable<Topic[]> {
+  getTopics(collectionPath: string): Observable<Topic[]> {
     var errResult = new Topic;
     var topicError: Topic[] = [];
-    const url = `${this.markDownsPath}/${TOPICS_FILENAME}`;
+    const url = `${this.markdownsRoot}/${collectionPath}/${TOPICS_FILENAME}`;
     return this.http.get<Topic[]>(url)
       .pipe(
         map(result => {
           if (this.isTopicsJson(result)) {
-            return result;
+            return result.sort((a, b) => {
+              return this.compare(a.topic, b.topic, true)
+            });
           } else {
             errResult.topic = `${ERROR_PREFIX}.${ERROR_SUFFIX_STRUCTURE}`;
             errResult.path = url;
@@ -130,15 +91,17 @@ export class MdContentsService {
       );
   }
 
-  getTitles(topicPath: string): Observable<Title[]> {
+  getTitles(collectionPath: string, topicPath: string): Observable<Title[]> {
     var errResult = new Title;
     var titleError: Title[] = [];
-    const url = `${this.markDownsPath}/${topicPath}/${TITLES_FILENAME}`;
+    const url = `${this.markdownsRoot}/${collectionPath}/${topicPath}/${TITLES_FILENAME}`;
     return this.http.get<Title[]>(url)
       .pipe(
         map(result => {
           if (this.isTitlesJson(result)) {
-            return result;
+            return result.sort((a, b) => {
+              return this.compare(a.title, b.title, true)
+            });
           } else {
             errResult.title = `${ERROR_PREFIX}.${ERROR_SUFFIX_STRUCTURE}`;
             errResult.path = url;
@@ -155,14 +118,15 @@ export class MdContentsService {
       );
   }
 
-  getPages(topicPath: string, titlePath: string): Observable<Page[]> {
+  getPages(collectionPath: string, topicPath: string, titlePath: string): Observable<Page[]> {
     var errResult = new Page;
     var pageError: Page[] = [];
-    const url = `${this.markDownsPath}/${topicPath}/${titlePath}/${PAGES_FILENAME}`;
+    const url = `${this.markdownsRoot}/${collectionPath}/${topicPath}/${titlePath}/${PAGES_FILENAME}`;
     return this.http.get<Page[]>(url)
       .pipe(
         map(result => {
           if (this.isPagesJson(result)) {
+            // no sorting here - custom order from JSON wanted
             return result;
           } else {
             errResult.page = `${ERROR_PREFIX}.${ERROR_SUFFIX_STRUCTURE}`;
@@ -221,6 +185,13 @@ export class MdContentsService {
       if (!ok) break;
     }
     return ok;
+  }
+  // #endregion
+
+  // #region SUPPORT
+  // --------------------------------------------------------------------------
+  private compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
   // #endregion
 }
