@@ -2,8 +2,6 @@
 
 ## Release 1.3.0 / 26-Jun-2022
 
-[See Help](./src/assets/markdowns/infollector-help/help/help/help.md)
-
 Simple tool for displaying a four-levels-structure of markdown files.
 
 1. Collections  (sorted ascending)
@@ -11,7 +9,7 @@ Simple tool for displaying a four-levels-structure of markdown files.
 3. Titles       (sorted ascending)
 4. Pages        (custom order from JSON)
 
-![Four-Levels-Structure](./src/assets/infollector-four-levels-structure.png)
+![Infollector Four-Levels-Structure](./src/assets/infollector-four-levels-structure.png)
 
 ### Structure of Markdown Files
 

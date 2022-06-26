@@ -1,13 +1,29 @@
-# Markdowns Structure
+# Infollector Help
+
+## Markdowns Root
+
+Use *Settings* to define your **Markdowns Root**:
+
+![Infollector Controls](./assets/infollector-controls.png)
+
+![Infollector Settings](./assets/infollector-settings.png)
+
+It might be any URL like above.
+
+But it is recommended to use a relative path from within your INFOLLECTOR location. See 'Demo Root' to get an example.
+
+If you use an URL with cross-domain-reference, you might have to configure the referenced server accordingly.
+
+## Markdowns Structure
 
 1. Collections  (sorted ascending)
 2. Topics       (sorted ascending)
 3. Titles       (sorted ascending)
 4. Pages        (custom order from JSON)
 
-![Four-Levels-Structure](./assets/infollector-four-levels-structure.png)
+![Infollector Four-Levels-Structure](./assets/infollector-four-levels-structure.png)
 
-## Structure of Markdown Files
+### Structure of Markdown Files
 
 ```js
 <root>
@@ -29,7 +45,7 @@
 └ _collections.json
 ```
 
-## Format of Structuring JSON
+### Format of Structuring JSON
 
 ```js
 _collections.json

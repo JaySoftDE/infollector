@@ -6,8 +6,10 @@ import { map, shareReplay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { MdContentsService } from '../md-contents/md-contents.service';
 import { MdSettingsComponent } from '../md-settings/md-settings.component';
+import { MdDialogComponent } from '../md-dialog/md-dialog.component';
+
+import { MdContentsService } from '../md-contents/md-contents.service';
 import { MdSettingsService } from '../md-settings/md-settings.service';
 
 import { Collection, Topic, Title, Page, DisplayType } from '../md-contents/md-contents';
@@ -196,11 +198,11 @@ export class MdRendererComponent implements OnInit {
   }
 
   openInfo(): void {
-
+    this.dialog.open(MdDialogComponent, { data: './assets/markdowns/infollector-info/info/info/info.md'});
   }
 
   openHelp(): void {
-
+    this.dialog.open(MdDialogComponent, { data: './assets/markdowns/infollector-help/help/help/help.md'});
   }
   // #endregion
 

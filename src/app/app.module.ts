@@ -17,6 +17,7 @@ import { MdRendererComponent } from './md-renderer/md-renderer.component';
 import { MdSettingsComponent } from './md-settings/md-settings.component';
 import { MdDefaultComponent } from './md-default/md-default.component';
 import { MdErrorComponent } from './md-error/md-error.component';
+import { MdDialogComponent } from './md-dialog/md-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MdErrorComponent } from './md-error/md-error.component';
     MdSettingsComponent,
     MdDefaultComponent,
     MdErrorComponent,
+    MdDialogComponent,
   ],
   imports: [
     BrowserModule,
