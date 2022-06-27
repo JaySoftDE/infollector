@@ -25,3 +25,19 @@ export enum DisplayType {
   error,
 }
 
+export enum StructureLevel {
+  page,
+  title,
+  topic,
+  collection,
+  root,
+}
+
+export enum ItemType {
+  collection = 'collection',
+  topic = 'topic',
+  title = 'title',
+  page = 'page',
+}
+
+

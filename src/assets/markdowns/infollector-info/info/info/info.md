@@ -1,6 +1,6 @@
 # About Infollector
 
-## Release 1.3.0 / 26-Jun-2022
+## Release 1.3.1 / 27-Jun-2022
 
 ### The MIT License
 

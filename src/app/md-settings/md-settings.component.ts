@@ -49,7 +49,11 @@ export class MdSettingsComponent implements OnInit {
 
   save(): void {
     this.getFormData();
-    this.mdSettingsService.setMarkdownsRoot(this.newRoot);
+    if (this.newRoot.toUpperCase() == 'RESET') {
+      this.mdSettingsService.removeAllSettings();
+    } else {
+      this.mdSettingsService.setMarkdownsRoot(this.newRoot);
+    }
     this.dialogRef.close(true);
   }
 

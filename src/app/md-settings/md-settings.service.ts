@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { environment } from 'src/environments/environment';
+import { ItemType } from '../md-contents/md-contents';
 
-import { 
+import {
   MARKDOWNS_ROOT_DEMO,
-  MARKDOWNS_ROOT_DEV,
-  MARKDOWNS_ROOT_PROD,
-} from '../app.const';
-
-const LS_KEY_MARKDOWN_ROOT = 'infollector.markdown.root';
+  LS_KEY_MARKDOWN_ROOT,
+  LS_KEY_ITEM_PATH,
+  } from '../app.const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MdSettingsService {
-
-  private isProd = environment.production;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -25,11 +21,7 @@ export class MdSettingsService {
     let root: string;
     root = this.localStorageService.getItem(LS_KEY_MARKDOWN_ROOT);
     if (root == null || root == '') {
-      if (this.isProd) {
-        root = MARKDOWNS_ROOT_PROD;
-      } else {
-        root = MARKDOWNS_ROOT_DEV;
-      }
+      root = MARKDOWNS_ROOT_DEMO;
       this.localStorageService.setItem(LS_KEY_MARKDOWN_ROOT, root);
     }
     console.log(`Markdowns Root: ${root}`);
@@ -42,5 +34,24 @@ export class MdSettingsService {
 
   removeMarkdownsRoot(): void {
     this.localStorageService.removeItem(LS_KEY_MARKDOWN_ROOT);
+  }
+
+  getRecentItemPath(item: ItemType): string {
+    console.log(`${LS_KEY_ITEM_PATH}.${item}`);
+    let path: string;
+    path = this.localStorageService.getItem(`${LS_KEY_ITEM_PATH}.${item}`);
+    return path;
+  }
+
+  setRecentItemPath(item: ItemType, path: string): void {
+    this.localStorageService.setItem(`${LS_KEY_ITEM_PATH}.${item}`, path);
+  }
+
+  removeRecentItemPath(item: ItemType): void {
+    this.localStorageService.removeItem(`${LS_KEY_ITEM_PATH}.${item}`);
+  }
+  
+  removeAllSettings(): void {
+    this.localStorageService.clear();
   }
 }

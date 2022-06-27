@@ -1,6 +1,7 @@
 export const MARKDOWNS_ROOT_DEMO = './assets/markdowns';
-export const MARKDOWNS_ROOT_DEV = './markdowns';
-export const MARKDOWNS_ROOT_PROD = 'http://infollector.jaysoft.de/markdowns';
+
+export const LS_KEY_MARKDOWN_ROOT = 'infollector.markdown.root';
+export const LS_KEY_ITEM_PATH = 'infollector.path';
 
 export const COLLECTIONS_FILENAME = '_collections.json';
 export const TOPICS_FILENAME = '_topics.json';

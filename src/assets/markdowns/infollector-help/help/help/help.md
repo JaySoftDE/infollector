@@ -1,4 +1,4 @@
-# Infollector Help
+# INFOLLECTOR Help
 
 ## Markdowns Root
 
@@ -13,6 +13,8 @@ It might be any URL like above.
 But it is recommended to use a relative path from within your INFOLLECTOR location. See 'Demo Root' to get an example.
 
 If you use an URL with cross-domain-reference, you might have to configure the referenced server accordingly.
+
+**INFO**: Your Markdowns Root and the recently selected items are stored in your *browser's local storage*. Only the app itself has access to this storage. In case you want to remove everything from your local storage, which INFOLLECTOR has stored, type 'RESET' into the 'Markdowns Root' Settings field, save settings and close the app immediately.
 
 ## Markdowns Structure
 

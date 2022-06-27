@@ -12,7 +12,7 @@ import { MdDialogComponent } from '../md-dialog/md-dialog.component';
 import { MdContentsService } from '../md-contents/md-contents.service';
 import { MdSettingsService } from '../md-settings/md-settings.service';
 
-import { Collection, Topic, Title, Page, DisplayType } from '../md-contents/md-contents';
+import { Collection, Topic, Title, Page, DisplayType, StructureLevel, ItemType } from '../md-contents/md-contents';
 import { HintType } from '../md-default/md-default';
 import { InfollectorError, ErrorType, ErrorSubtype } from '../md-error/md-error';
 
@@ -22,14 +22,6 @@ import {
   ERROR_SUFFIX_FILE
 } from '../app.const';
 
-enum StructureLevel {
-  page,
-  title,
-  topic,
-  collection,
-  root,
-}
-
 @Component({
   selector: 'ifx-md-renderer',
   templateUrl: './md-renderer.component.html',
@@ -38,6 +30,10 @@ enum StructureLevel {
 export class MdRendererComponent implements OnInit {
 
   private markdownsRoot: string = '';
+  private recentCollectionPath: string = '';
+  private recentTopicPath: string = '';
+  private recentTitlePath: string = '';
+  private recentPagePath: string = '';
 
   public collections: Collection[] = [];
   public topics: Topic[] = [];
@@ -78,6 +74,10 @@ export class MdRendererComponent implements OnInit {
   // --------------------------------------------------------------------------
   ngOnInit(): void {
     this.markdownsRoot = this.mdSettingsService.getMarkdownsRoot();
+    this.recentCollectionPath = this.mdSettingsService.getRecentItemPath(ItemType.collection);
+    this.recentTopicPath = this.mdSettingsService.getRecentItemPath(ItemType.topic);
+    this.recentTitlePath = this.mdSettingsService.getRecentItemPath(ItemType.title);
+    this.recentPagePath = this.mdSettingsService.getRecentItemPath(ItemType.page);
     this.loadCollections();
   }
   // #endregion
@@ -98,10 +98,17 @@ export class MdRendererComponent implements OnInit {
       if (this.collections.length == 1) {
         // There is only one collection - auto-select it
         this.selectedCollection = this.collections[0];
+      } else {
+        // Check if there is a recent collection
+        const collectionIdx = this.collections.findIndex((collection) => collection.path == this.recentCollectionPath);
+        if (collectionIdx != -1) {
+          this.selectedCollection = this.collections[collectionIdx];
+        }
       }
       if (this.selectedCollection.path.length) {
         // Collection has been selected
         this.loadTopics(this.selectedCollection);
+        this.mdSettingsService.setRecentItemPath(ItemType.collection, this.selectedCollection.path);
       } else {
         // No Collection has been selected, yet
         this.setDisplayType();
@@ -123,10 +130,17 @@ export class MdRendererComponent implements OnInit {
       if (this.topics.length == 1) {
         // There is only one topic - auto-select it
         this.selectedTopic = this.topics[0];
+      } else {
+        // Check if there is a recent topic
+        const topicIdx = this.topics.findIndex((topic) => topic.path == this.recentTopicPath);
+        if (topicIdx != -1) {
+          this.selectedTopic = this.topics[topicIdx];
+        }
       }
       if (this.selectedTopic.path.length) {
         // Topic has been selected
         this.loadTitles(this.selectedCollection, this.selectedTopic);
+        this.mdSettingsService.setRecentItemPath(ItemType.topic, this.selectedTopic.path);
       } else {
         // No Topic has been selected, yet
         this.setDisplayType();
@@ -146,13 +160,20 @@ export class MdRendererComponent implements OnInit {
       this.setDisplayType();
     } else {
       if (this.titles.length == 1) {
-        // There is only one topic - auto-select it
+        // There is only one title - auto-select it
         title = this.titles[0];
+      } else {
+        // Check if there is a recent title
+        const titleIdx = this.titles.findIndex((title) => title.path == this.recentTitlePath);
+        if (titleIdx != -1) {
+          title = this.titles[titleIdx];
+        }
       }
       if (title.path.length) {
         // Title has been selected
         this.selectedTitle = title;
         this.loadPages(this.selectedCollection, this.selectedTopic, this.selectedTitle);
+        this.mdSettingsService.setRecentItemPath(ItemType.title, this.selectedTitle.path);
       } else {
         // No Title has been selected, yet
         this.setDisplayType();
@@ -168,11 +189,23 @@ export class MdRendererComponent implements OnInit {
       this.setError(ErrorType.page, this.pages[0].page, this.pages[0].path);
       this.pages = [];
     } else {
-      // Select first Page
-      this.selectedPage = this.pages[0];
-      this.selectedTab = 0;
+      // Check if there is a recent page
+      const pageIdx = this.pages.findIndex((page) => page.path == this.recentPagePath);
+      if (pageIdx != -1) {
+        this.selectedPage = this.pages[pageIdx];
+        this.selectedTab = pageIdx;
+      } else {
+        // Select first Page
+        this.selectedPage = this.pages[0];
+        this.selectedTab = 0;
+        this.mdSettingsService.setRecentItemPath(ItemType.page, this.selectedPage.path);
+      }
     }
     this.setDisplayType();
+  }
+
+  pageHasChanged(): void {
+    this.mdSettingsService.setRecentItemPath(ItemType.page, this.pages[this.selectedTab].path);
   }
 
   getMarkdownPath(pagePath: string): string {
@@ -198,11 +231,11 @@ export class MdRendererComponent implements OnInit {
   }
 
   openInfo(): void {
-    this.dialog.open(MdDialogComponent, { data: './assets/markdowns/infollector-info/info/info/info.md'});
+    this.dialog.open(MdDialogComponent, { data: './assets/markdowns/infollector-info/info/info/info.md' });
   }
 
   openHelp(): void {
-    this.dialog.open(MdDialogComponent, { data: './assets/markdowns/infollector-help/help/help/help.md'});
+    this.dialog.open(MdDialogComponent, { data: './assets/markdowns/infollector-help/help/help/help.md' });
   }
   // #endregion
 

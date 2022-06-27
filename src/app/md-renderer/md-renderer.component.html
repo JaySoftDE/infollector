@@ -67,7 +67,7 @@
 
 <!-- Alternative Templates -->
 <ng-template #MultiPagesDisplay>
-  <mat-tab-group color="accent" animationDuration="0" [(selectedIndex)]="selectedTab">
+  <mat-tab-group color="accent" animationDuration="0" [(selectedIndex)]="selectedTab" (selectedTabChange)="pageHasChanged()">
     <mat-tab *ngFor="let page of pages" [label]="page.page">
       <!-- Lazy Loading Tabs -->
       <ng-template matTabContent>
