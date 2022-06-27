@@ -41,7 +41,7 @@ Copyright &copy; 2022 Google LLC.
 
 #### zone.js
 
-Copyright &copy; 2010-2022 Google LLC. [https://angular.io/license](https://angular.io/license)
+Copyright &copy; 2010-2022 Google LLC. <https://angular.io/license>
 
 ---
 
@@ -58,15 +58,15 @@ Copyright &copy; 2011-2021 The Bootstrap Authors
 
 If you contribute code to this project, you are implicitly allowing your code to be distributed under the MIT license. You are also implicitly verifying that all code is your original work. `</legalese>`
 
-Copyright &copy; 2018+, MarkedJS ([https://github.com/markedjs/](https://github.com/markedjs/))  
-Copyright &copy; 2011-2018, Christopher Jeffrey ([https://github.com/chjj/](https://github.com/chjj/))
+Copyright &copy; 2018+, MarkedJS (<https://github.com/markedjs/>)  
+Copyright &copy; 2011-2018, Christopher Jeffrey (<https://github.com/chjj/>)
 
 ---
 
 #### Markdown
 
 Copyright &copy; 2004, John Gruber  
-[http://daringfireball.net/](http://daringfireball.net/)  
+<http://daringfireball.net/>  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -103,7 +103,7 @@ Copyright &copy; Microsoft Corporation.
 Apache-2.0  
 Apache License  
 Version 2.0, January 2004  
-[http://www.apache.org/licenses/](http://www.apache.org/licenses/)
+<http://www.apache.org/licenses/>
 
  TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
@@ -295,7 +295,7 @@ identification within third-party archives.
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+<http://www.apache.org/licenses/LICENSE-2.0>
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,

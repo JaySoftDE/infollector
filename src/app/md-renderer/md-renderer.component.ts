@@ -98,6 +98,14 @@ export class MdRendererComponent implements OnInit {
       if (this.collections.length == 1) {
         // There is only one collection - auto-select it
         this.selectedCollection = this.collections[0];
+      }
+      if (this.selectedCollection.path.length) {
+        // There is a selected collection
+        if (this.selectedCollection.path != this.recentCollectionPath) {
+          // Selected collection differs from recent collection
+          // => Reset subsequent recent items paths
+          this.resetSubsequentRecentItemsPaths(StructureLevel.collection);
+        }
       } else {
         // Check if there is a recent collection
         const collectionIdx = this.collections.findIndex((collection) => collection.path == this.recentCollectionPath);
@@ -106,9 +114,10 @@ export class MdRendererComponent implements OnInit {
         }
       }
       if (this.selectedCollection.path.length) {
-        // Collection has been selected
+        // Collection has been finally selected
         this.loadTopics(this.selectedCollection);
-        this.mdSettingsService.setRecentItemPath(ItemType.collection, this.selectedCollection.path);
+        this.recentCollectionPath = this.selectedCollection.path;
+        this.mdSettingsService.setRecentItemPath(ItemType.collection, this.recentCollectionPath);
       } else {
         // No Collection has been selected, yet
         this.setDisplayType();
@@ -130,6 +139,14 @@ export class MdRendererComponent implements OnInit {
       if (this.topics.length == 1) {
         // There is only one topic - auto-select it
         this.selectedTopic = this.topics[0];
+      }
+      if (this.selectedTopic.path.length) {
+        // There is a selected topic
+        if (this.selectedTopic.path != this.recentTopicPath) {
+          // Selected topic differs from recent topic
+          // => Reset subsequent recent items paths
+          this.resetSubsequentRecentItemsPaths(StructureLevel.topic);
+        }
       } else {
         // Check if there is a recent topic
         const topicIdx = this.topics.findIndex((topic) => topic.path == this.recentTopicPath);
@@ -138,9 +155,10 @@ export class MdRendererComponent implements OnInit {
         }
       }
       if (this.selectedTopic.path.length) {
-        // Topic has been selected
+        // Topic has been finally selected
         this.loadTitles(this.selectedCollection, this.selectedTopic);
-        this.mdSettingsService.setRecentItemPath(ItemType.topic, this.selectedTopic.path);
+        this.recentTopicPath = this.selectedTopic.path;
+        this.mdSettingsService.setRecentItemPath(ItemType.topic, this.recentTopicPath);
       } else {
         // No Topic has been selected, yet
         this.setDisplayType();
@@ -162,6 +180,14 @@ export class MdRendererComponent implements OnInit {
       if (this.titles.length == 1) {
         // There is only one title - auto-select it
         title = this.titles[0];
+      }
+      if (title.path.length) {
+        // There is a selected title
+        if (title.path != this.recentTopicPath) {
+          // Selected title differs from recent title
+          // => Reset subsequent recent items paths
+          this.resetSubsequentRecentItemsPaths(StructureLevel.title);
+        }
       } else {
         // Check if there is a recent title
         const titleIdx = this.titles.findIndex((title) => title.path == this.recentTitlePath);
@@ -170,10 +196,11 @@ export class MdRendererComponent implements OnInit {
         }
       }
       if (title.path.length) {
-        // Title has been selected
+        // Title has been finally selected
         this.selectedTitle = title;
         this.loadPages(this.selectedCollection, this.selectedTopic, this.selectedTitle);
-        this.mdSettingsService.setRecentItemPath(ItemType.title, this.selectedTitle.path);
+        this.recentTitlePath = this.selectedTitle.path;
+        this.mdSettingsService.setRecentItemPath(ItemType.title, this.recentTitlePath);
       } else {
         // No Title has been selected, yet
         this.setDisplayType();
@@ -198,14 +225,15 @@ export class MdRendererComponent implements OnInit {
         // Select first Page
         this.selectedPage = this.pages[0];
         this.selectedTab = 0;
-        this.mdSettingsService.setRecentItemPath(ItemType.page, this.selectedPage.path);
+        this.recentPagePath = this.selectedPage.path;
+        this.mdSettingsService.setRecentItemPath(ItemType.page, this.recentPagePath);
       }
     }
     this.setDisplayType();
   }
 
   pageHasChanged(): void {
-    this.mdSettingsService.setRecentItemPath(ItemType.page, this.pages[this.selectedTab].path);
+    this.mdSettingsService.setRecentItemPath(ItemType.page, this.pages[this.selectedTab]?.path);
   }
 
   getMarkdownPath(pagePath: string): string {
@@ -335,6 +363,25 @@ export class MdRendererComponent implements OnInit {
       this.pages = [];
       this.selectedPage = new Page;
       this.selectedTab = 0;
+    }
+  }
+
+  resetSubsequentRecentItemsPaths(level: StructureLevel): void {
+    if (level >= StructureLevel.root) {
+      this.recentCollectionPath = '';
+      this.mdSettingsService.removeRecentItemPath(ItemType.collection);
+    }
+    if (level >= StructureLevel.collection) {
+      this.recentTopicPath = '';
+      this.mdSettingsService.removeRecentItemPath(ItemType.topic);
+    }
+    if (level >= StructureLevel.topic) {
+      this.recentTitlePath = '';
+      this.mdSettingsService.removeRecentItemPath(ItemType.title);
+    }
+    if (level >= StructureLevel.title) {
+      this.recentPagePath = '';
+      this.mdSettingsService.removeRecentItemPath(ItemType.page);
     }
   }
 

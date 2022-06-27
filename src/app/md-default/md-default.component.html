@@ -3,15 +3,15 @@
     <ng-container [ngSwitch]="hintType">
       <ng-container *ngSwitchCase="HintTypeEnum.noHint"></ng-container>
       <ng-container *ngSwitchCase="HintTypeEnum.collectionHint">
-        <img src="./assets/arrow-north-west.png" alt="oben links" />
+        <img src="./assets/arrow-up-left.png" alt="oben links" />
         <img src="./assets/hint-collection.png" alt="Sammlungswahl" />
       </ng-container>
       <ng-container *ngSwitchCase="HintTypeEnum.topicHint">
-        <img src="./assets/arrow-west.png" alt="links" />
+        <img src="./assets/arrow-left.png" alt="links" />
         <img src="./assets/hint-topic.png" alt="Themenwahl" />
       </ng-container>
       <ng-container *ngSwitchCase="HintTypeEnum.titleHint">
-        <img src="./assets/arrow-south-west.png" alt="unten links" />
+        <img src="./assets/arrow-down-left.png" alt="unten links" />
         <img src="./assets/hint-title.png" alt="Titelwahl" />
       </ng-container>
       <ng-container *ngSwitchDefault></ng-container>

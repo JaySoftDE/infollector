@@ -37,7 +37,6 @@ export class MdSettingsService {
   }
 
   getRecentItemPath(item: ItemType): string {
-    console.log(`${LS_KEY_ITEM_PATH}.${item}`);
     let path: string;
     path = this.localStorageService.getItem(`${LS_KEY_ITEM_PATH}.${item}`);
     return path;
