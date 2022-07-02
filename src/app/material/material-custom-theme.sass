@@ -1,0 +1,83 @@
+@use '@angular/material' as mat
+
+@include mat.core()
+
+$ifx-dark-primary: mat.define-palette(mat.$purple-palette, 900)
+$ifx-dark-accent: mat.define-palette(mat.$cyan-palette, A200)
+$ifx-dark-warn: mat.define-palette(mat.$pink-palette, 600)
+
+$ifx-dark-theme: mat.define-dark-theme((color: (primary: $ifx-dark-primary, accent: $ifx-dark-accent, warn: $ifx-dark-warn)))
+
+$ifx-light-primary: mat.define-palette(mat.$purple-palette, 900)
+$ifx-light-accent: mat.define-palette(mat.$cyan-palette, A200)
+$ifx-light-warn: mat.define-palette(mat.$pink-palette, 600)
+
+$ifx-light-theme: mat.define-light-theme((color: (primary: $ifx-light-primary, accent: $ifx-light-accent, warn: $ifx-light-warn)))
+
+@include mat.all-component-themes($ifx-dark-theme)
+
+.ifx-light-theme
+  // *** IMPORTANT: Use '...colors' instead of '...themes' with your second theme to avoid duplication-warnings
+  @include mat.all-component-colors($ifx-light-theme)
+
+// *** An alternative would be to switch off duplication-warnings (not recommended)
+// mat.$theme-ignore-duplication-warnings: true;
+
+// *** Above solution includes probably more CSS in your app, than needed
+// *** If you have size or performance issues, it's better to reduce your code
+// *** by handling the different components individually
+
+// *** EXAMPLE
+
+// @include mat.core-theme($ifx-dark-theme)        // <-- mandatory
+// @include mat.button-theme($ifx-dark-theme)
+// @include mat.icon-theme($ifx-dark-theme)
+// @include mat.sidenav-theme($ifx-dark-theme)
+// @include mat.toolbar-theme($ifx-dark-theme)
+
+// .ifx-light-theme
+//   @include mat.core-color($ifx-light-theme)     // <-- mandatory
+//   @include mat.button-color($ifx-light-theme)
+//   @include mat.icon-color($ifx-light-theme)
+//   @include mat.sidenav-color($ifx-light-theme)
+//   @include mat.toolbar-color($ifx-light-theme)
+
+
+// *** EXISTING THEMES (@angular/material ^14.0.0)
+
+// @include core-theme.theme($theme-or-color-config)
+// @include autocomplete-theme.theme($theme-or-color-config)
+// @include badge-theme.theme($theme-or-color-config)
+// @include bottom-sheet-theme.theme($theme-or-color-config)
+// @include button-theme.theme($theme-or-color-config)
+// @include button-toggle-theme.theme($theme-or-color-config)
+// @include card-theme.theme($theme-or-color-config)
+// @include checkbox-theme.theme($theme-or-color-config)
+// @include chips-theme.theme($theme-or-color-config)
+// @include datepicker-theme.theme($theme-or-color-config)
+// @include dialog-theme.theme($theme-or-color-config)
+// @include divider-theme.theme($theme-or-color-config)
+// @include expansion-theme.theme($theme-or-color-config)
+// @include form-field-theme.theme($theme-or-color-config)
+// @include grid-list-theme.theme($theme-or-color-config)
+// @include icon-theme.theme($theme-or-color-config)
+// @include input-theme.theme($theme-or-color-config)
+// @include list-theme.theme($theme-or-color-config)
+// @include menu-theme.theme($theme-or-color-config)
+// @include paginator-theme.theme($theme-or-color-config)
+// @include progress-bar-theme.theme($theme-or-color-config)
+// @include progress-spinner-theme.theme($theme-or-color-config)
+// @include radio-theme.theme($theme-or-color-config)
+// @include select-theme.theme($theme-or-color-config)
+// @include sidenav-theme.theme($theme-or-color-config)
+// @include slide-toggle-theme.theme($theme-or-color-config)
+// @include slider-theme.theme($theme-or-color-config)
+// @include snack-bar-theme.theme($theme-or-color-config)
+// @include sort-theme.theme($theme-or-color-config)
+// @include stepper-theme.theme($theme-or-color-config)
+// @include table-theme.theme($theme-or-color-config)
+// @include tabs-theme.theme($theme-or-color-config)
+// @include toolbar-theme.theme($theme-or-color-config)
+// @include tooltip-theme.theme($theme-or-color-config)
+// @include tree-theme.theme($theme-or-color-config)
+  

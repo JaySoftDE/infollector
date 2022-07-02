@@ -26,6 +26,14 @@ a:active {
   color: rgb(255, 255, 255);
 }
 
+/* for ngx-markdown */
 markdown img {
   max-width: 100%
+}
+
+blockquote {
+  border-left: 3px solid rgb(24, 255, 255);
+  padding-left: 12px;
+  color: rgb(200, 200, 200);
+  font-style: italic;
 }

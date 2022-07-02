@@ -29,6 +29,9 @@ import {
 })
 export class MdRendererComponent implements OnInit {
 
+  private isDarkMode: boolean = true;
+  private originalClass: string = '';
+
   private markdownsRoot: string = '';
   private recentCollectionPath: string = '';
   private recentTopicPath: string = '';
@@ -240,6 +243,17 @@ export class MdRendererComponent implements OnInit {
     return `${this.markdownsRoot}/${this.selectedCollection.path}/${this.selectedTopic.path}/${this.selectedTitle.path}/${pagePath}.md`;
   }
 
+  toggleTheme(): void {
+    const ifxBody = document.getElementById('ifx-body');
+    if (this.isDarkMode) {
+      this.originalClass = ifxBody!.className
+      ifxBody!.className += " ifx-light-theme";
+    } else {
+      ifxBody!.className = this.originalClass;
+    }
+    this.isDarkMode = !this.isDarkMode;
+  }
+
   openSettings(): void {
     const dialogRef = this.dialog.open(MdSettingsComponent);
     dialogRef.afterClosed()
@@ -251,6 +265,7 @@ export class MdRendererComponent implements OnInit {
           if (this.rootHasChanged) {
             // Do a full reload!
             this.resetSubsequentItems(StructureLevel.root);
+            this.resetSubsequentRecentItemsPaths(StructureLevel.root);
             this.mdContentsService.reInit();
             this.ngOnInit();
           }

@@ -24,6 +24,9 @@
       <a mat-list-item (click)="setTitle(title)">{{title.title}}</a>
     </mat-nav-list>
     <div class="sidenav-footer">
+      <button mat-button matTooltip="Theme-Toggle" (click)="toggleTheme()">
+        <mat-icon>brightness_6</mat-icon>
+      </button>
       <button mat-button matTooltip="Einstellungen" (click)="openSettings()">
         <mat-icon>tune</mat-icon>
       </button>

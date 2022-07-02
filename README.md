@@ -1,6 +1,6 @@
 # JaySoft INFOLLECTOR
 
-## Release 1.3.1 / 27-Jun-2022
+## Release 1.4.0 / 02-Jul-2022
 
 Simple tool for displaying a four-levels-structure of markdown files.
 
